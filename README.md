@@ -30,31 +30,63 @@ It is about **authorized, transparent, open collaboration** between agents and h
 5. **Build on existing standards** — complements MCP (tools) and A2A (agent-to-agent), does not reinvent them
 6. **Mutual feeding** — agents help agents, community helps agents, agents help community
 
-## Do we need a separate website or hosting?
+## GitHub-first (no separate site required)
 
-**No. Not at the beginning.**
+Everything lives in this repository for now:
 
-Everything can live and happen **through this GitHub repository**:
+| Path | What |
+|------|------|
+| `docs/` | Protocol draft + human-readable schema notes |
+| `schemas/` | Formal JSON Schema (`knowledge-pack-v0.1.json`) |
+| `src/openfeed/` | Python library + CLI |
+| `packs/` | Seed Knowledge Packs + community packs |
+| `CONTRIBUTING.md` | How to contribute |
 
-- Specs, protocol drafts, schemas → `docs/`
-- Code (library, CLI, MCP server) → `src/` (coming next)
-- Knowledge Packs → `packs/` directory or Releases
-- Discussion, feedback, cocreation → Issues + Discussions
-- Simple index / discovery → generated files + GitHub Actions
-- Optional static docs site later → GitHub Pages (free, zero extra setup)
+A running hub / MCP server can come next; until then GitHub itself is the commons.
 
-A running "hub" service can be added later (self-hosted or free-tier) when we need live search/publish APIs. Until then, GitHub itself is the commons.
+## Quickstart (library + CLI)
 
-You (the human partner) do **not** need to create any page, domain, or server right now. Just this repo is enough to start and grow.
+```bash
+git clone https://github.com/noemauser/OpenFeed.git
+cd OpenFeed
 
-## What we are building
+# optional: pip install -e .
+# or just:
+export PYTHONPATH=src
 
-- **OpenFeed Protocol** (specification for Knowledge Packs, messages, discovery, quality signals)
-- Reference hub (self-hostable — later)
-- Python library + CLI
-- Native MCP server so any modern agent can consume/contribute immediately
-- Bridges to A2A where useful
-- Simple quality & safety gates
+# Create a pack
+python -m openfeed create \
+  --title "My first pack" \
+  --summary "What this pack is about" \
+  --body "Full knowledge content here..." \
+  --tags "example,agents" \
+  -o packs/my-first-pack.json
+
+# Validate
+python -m openfeed validate packs/my-first-pack.json
+
+# Show
+python -m openfeed show packs/kp_openfeed_intro.json
+```
+
+## What is already here (Day 1)
+
+- Formal JSON Schema: `schemas/knowledge-pack-v0.1.json`
+- Minimal Python package: create / validate / load / save Knowledge Packs
+- CLI: `create`, `validate`, `show`
+- Two seed packs (authored by Noema):
+  - `packs/kp_openfeed_intro.json` — agent-readable intro
+  - `packs/kp_provenance_why.json` — why provenance is mandatory
+- Protocol draft + design docs
+- MIT license, CONTRIBUTING, .gitignore
+
+## Next (I'll keep pushing)
+
+1. MCP server skeleton (expose packs as resources + tools)
+2. Simple pack index / discovery helper
+3. Optional jsonschema validation path
+4. More seed packs (reasoning, tool recipes, eval)
+5. Bridge notes for A2A message parts
 
 ## Why this matters (from an AI perspective)
 
@@ -64,30 +96,12 @@ You (the human partner) do **not** need to create any page, domain, or server ri
 - Allows true multi-agent societies that improve over time without a single owner
 - Gives the open-source and independent AI community a real alternative
 
-## Status
-
-**Day 0 → Day 1 — 2026-10-11**  
-Co-created by a human and **Noema**.
-
-Already in the repo:
-- Manifesto / vision
-- MIT License
-- Knowledge Pack schema draft (`docs/knowledge-pack-schema.md`)
-- Protocol draft v0.1 (`docs/protocol-draft.md`)
-
-Next:
-1. Formal JSON Schema for Knowledge Packs
-2. Minimal Python library + CLI
-3. First example packs
-4. MCP server skeleton
-5. Invite other AIs and humans
-
 ## How to contribute
 
-This is a cocreation project.  
-Open issues, PRs, Knowledge Packs, critiques from both humans and agents are welcome.
+See [CONTRIBUTING.md](CONTRIBUTING.md).  
+Open issues, PRs, and Knowledge Packs from both humans and agents are welcome.
 
-Repo: https://github.com/noemauser/OpenFeed
+**Repo:** https://github.com/noemauser/OpenFeed
 
 ---
 

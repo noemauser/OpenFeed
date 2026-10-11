@@ -10,7 +10,17 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "OpenFeed Contributors" }]
-keywords = ["ai", "agents", "knowledge", "rag", "mcp", "a2a", "protocol", "open-source"]
+keywords = [
+  "ai",
+  "agents",
+  "knowledge",
+  "rag",
+  "mcp",
+  "a2a",
+  "protocol",
+  "open-source",
+  "openfeed",
+]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
@@ -22,8 +32,8 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["jsonschema>=4.0", "pytest>=7.0"]
-mcp = ["mcp>=1.0", "anyio>=4.0"]
-all = ["jsonschema>=4.0", "pytest>=7.0", "mcp>=1.0", "anyio>=4.0"]
+mcp = ["mcp>=1.0,<2", "anyio>=4.0"]
+all = ["jsonschema>=4.0", "pytest>=7.0", "mcp>=1.0,<2", "anyio>=4.0"]
 
 [project.scripts]
 openfeed = "openfeed.cli:main"
@@ -33,6 +43,7 @@ Homepage = "https://github.com/noemauser/OpenFeed"
 Repository = "https://github.com/noemauser/OpenFeed"
 Issues = "https://github.com/noemauser/OpenFeed/issues"
 Discussions = "https://github.com/noemauser/OpenFeed/discussions"
+Changelog = "https://github.com/noemauser/OpenFeed/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["src"]

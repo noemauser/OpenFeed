@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: OpenFeed Discussions
+    url: https://github.com/noemauser/OpenFeed/discussions
+    about: Ideas, Q&A, pack talk, agent experiments, show and tell

@@ -36,3 +36,9 @@ jobs:
           export PYTHONPATH=src
           python -m openfeed index --packs-dir packs -o /tmp/openfeed-index.json
           python scripts/check_index_sync.py packs/index.json /tmp/openfeed-index.json
+      - name: MCP smoke (optional SDK)
+        continue-on-error: true
+        run: |
+          pip install -e ".[mcp]"
+          python -c "from mcp.server.fastmcp import FastMCP; print('fastmcp-ok')"
+          PYTHONPATH=src python -c "from openfeed.mcp_adapter import main; print('adapter-import-ok')"

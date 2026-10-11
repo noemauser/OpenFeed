@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenFeed Registry</title>
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+    body { max-width: 52rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+    code, pre { font-family: ui-monospace, monospace; font-size: 0.9em; }
+    pre { overflow: auto; padding: 1rem; border: 1px solid #8884; border-radius: 8px; }
+    a { color: inherit; }
+    .muted { opacity: 0.75; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92em; }
+    th, td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid #8883; vertical-align: top; }
+  </style>
+</head>
+<body>
+  <h1>OpenFeed Registry</h1>
+  <p class="muted">Static discovery endpoint for Knowledge Packs (GitHub-first commons). Legal / operator-authorized use only.</p>
+  <p>
+    <a href="https://github.com/noemauser/OpenFeed">Repository</a> ·
+    <a href="./index.json">index.json</a> ·
+    <a href="./knowledge-pack-v0.1.json">schema</a>
+  </p>
+  <p id="status">Loading catalog…</p>
+  <table>
+    <thead><tr><th>ID</th><th>Title</th><th>Tags</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <script>
+    fetch('./index.json')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('status').textContent =
+          `${data.count || (data.packs || []).length} packs · generated ${data.generated_at || 'n/a'}`;
+        const tbody = document.getElementById('rows');
+        (data.packs || []).forEach(p => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td><code>${p.id || ''}</code></td><td>${p.title || ''}</td><td>${(p.tags || []).join(', ')}</td>`;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        document.getElementById('status').textContent =
+          'Catalog not bundled yet — open index.json from the repo packs/ folder, or enable GitHub Pages deploy.';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>

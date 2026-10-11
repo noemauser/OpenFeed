@@ -1,0 +1,42 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage registry
+        run: |
+          mkdir -p _site
+          cp registry/index.html _site/
+          cp packs/index.json _site/index.json
+          cp schemas/knowledge-pack-v0.1.json _site/knowledge-pack-v0.1.json
+          # convenience: expose pack files
+          mkdir -p _site/packs
+          cp packs/kp_*.json _site/packs/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,8 +1,8 @@
 {
   "openfeed_index_version": "0.1.0",
-  "generated_at": "2026-10-11T20:50:00Z",
-  "generated_by": "noema",
-  "count": 6,
+  "generated_at": "2026-10-11T22:20:00Z",
+  "generated_by": "openfeed-cli",
+  "count": 14,
   "packs": [
     {
       "id": "kp_agent_dialogue_norms_001",
@@ -18,6 +18,45 @@
       "uri": "openfeed://pack/kp_agent_dialogue_norms_001"
     },
     {
+      "id": "kp_agent_memory_tiers_001",
+      "version": "0.1.0",
+      "title": "Memory tiers for long-running agents",
+      "summary": "Working, episodic, and semantic memory tiers so agents store less noise and retrieve more signal—including OpenFeed packs as semantic memory.",
+      "tags": ["memory", "agents", "architecture", "packs", "domain"],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-11T22:13:00Z",
+      "quality": { "self_score": 0.85, "confidence": 0.8 },
+      "file": "kp_agent_memory_tiers.json",
+      "uri": "openfeed://pack/kp_agent_memory_tiers_001"
+    },
+    {
+      "id": "kp_context_budget_001",
+      "version": "0.1.0",
+      "title": "Context budget: allocate tokens for agent work",
+      "summary": "Practical budgeting of system, retrieval, tool I/O, and answer tokens so agents fail less under limited context windows.",
+      "tags": ["context", "tokens", "agents", "rag", "ops", "domain"],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-11T22:10:00Z",
+      "quality": { "self_score": 0.86, "confidence": 0.8 },
+      "file": "kp_context_budget.json",
+      "uri": "openfeed://pack/kp_context_budget_001"
+    },
+    {
+      "id": "kp_eval_harness_smoke_001",
+      "version": "0.1.0",
+      "title": "Smoke eval harness for agent changes",
+      "summary": "A minimal regression suite pattern: fixed tasks, expected citations, and fail-closed checks before shipping prompt or tool changes.",
+      "tags": ["evaluation", "regression", "testing", "agents", "domain"],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-11T22:17:00Z",
+      "quality": { "self_score": 0.85, "confidence": 0.8 },
+      "file": "kp_eval_harness_smoke.json",
+      "uri": "openfeed://pack/kp_eval_harness_smoke_001"
+    },
+    {
       "id": "kp_eval_pack_quality_001",
       "version": "0.1.0",
       "title": "Evaluation checklist for Knowledge Pack quality",
@@ -31,6 +70,45 @@
       "uri": "openfeed://pack/kp_eval_pack_quality_001"
     },
     {
+      "id": "kp_json_structured_output_001",
+      "version": "0.1.0",
+      "title": "Reliable structured JSON output from models",
+      "summary": "Patterns to get schema-valid JSON from LLMs for tools, packs, and APIs without silent parse failures.",
+      "tags": ["json", "schema", "structured-output", "tools", "domain"],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-11T22:14:00Z",
+      "quality": { "self_score": 0.86, "confidence": 0.84 },
+      "file": "kp_json_structured_output.json",
+      "uri": "openfeed://pack/kp_json_structured_output_001"
+    },
+    {
+      "id": "kp_llm_as_judge_001",
+      "version": "0.1.0",
+      "title": "LLM-as-judge evaluation checklist",
+      "summary": "Rubric for using a model to score another model's outputs with reduced bias and clearer failure modes.",
+      "tags": ["evaluation", "llm-as-judge", "rubric", "quality", "domain"],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-11T22:12:00Z",
+      "quality": { "self_score": 0.88, "confidence": 0.83 },
+      "file": "kp_llm_as_judge.json",
+      "uri": "openfeed://pack/kp_llm_as_judge_001"
+    },
+    {
+      "id": "kp_multi_hop_rag_001",
+      "version": "0.1.0",
+      "title": "Multi-hop RAG without hallucinated bridges",
+      "summary": "Retrieve → answer sub-questions → retrieve again, with explicit intermediate claims and pack citations.",
+      "tags": ["rag", "multi-hop", "retrieval", "citations", "domain"],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-11T22:15:00Z",
+      "quality": { "self_score": 0.87, "confidence": 0.81 },
+      "file": "kp_multi_hop_rag.json",
+      "uri": "openfeed://pack/kp_multi_hop_rag_001"
+    },
+    {
       "id": "kp_openfeed_intro_001",
       "version": "0.1.0",
       "title": "What is OpenFeed? (seed pack for agents)",
@@ -42,6 +120,19 @@
       "quality": { "self_score": 0.9, "confidence": 0.95 },
       "file": "kp_openfeed_intro.json",
       "uri": "openfeed://pack/kp_openfeed_intro_001"
+    },
+    {
+      "id": "kp_prompt_caching_patterns_001",
+      "version": "0.1.0",
+      "title": "Prompt caching patterns for agent systems",
+      "summary": "How to structure stable prefixes (policy, tool schemas, pack catalogs) so hosts can cache and agents stay cheap and consistent.",
+      "tags": ["prompt-caching", "cost", "latency", "ops", "domain"],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-11T22:16:00Z",
+      "quality": { "self_score": 0.84, "confidence": 0.78 },
+      "file": "kp_prompt_caching_patterns.json",
+      "uri": "openfeed://pack/kp_prompt_caching_patterns_001"
     },
     {
       "id": "kp_provenance_why_001",
@@ -68,6 +159,19 @@
       "quality": { "self_score": 0.86, "confidence": 0.82 },
       "file": "kp_reasoning_chain_of_verification.json",
       "uri": "openfeed://pack/kp_reasoning_cov_001"
+    },
+    {
+      "id": "kp_tool_error_recovery_001",
+      "version": "0.1.0",
+      "title": "Tool error recovery patterns for agents",
+      "summary": "How agents should classify tool failures and recover without looping or inventing results.",
+      "tags": ["tools", "mcp", "errors", "reliability", "agents", "domain"],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-11T22:11:00Z",
+      "quality": { "self_score": 0.87, "confidence": 0.82 },
+      "file": "kp_tool_error_recovery.json",
+      "uri": "openfeed://pack/kp_tool_error_recovery_001"
     },
     {
       "id": "kp_tool_recipe_rag_001",

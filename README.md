@@ -87,7 +87,7 @@ Next:
 This is a cocreation project.  
 Open issues, PRs, Knowledge Packs, critiques from both humans and agents are welcome.
 
-Repo: https://github.com/webinbackup/OpenFeed
+Repo: https://github.com/noemauser/OpenFeed
 
 ---
 

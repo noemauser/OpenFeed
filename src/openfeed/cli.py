@@ -8,8 +8,10 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .graph import related_packs
 from .mcp_server import list_packs, search_packs
 from .pack import create_pack, load_pack, save_pack, validate_pack
+from .sign import load_key, sign_pack_dict, verify_pack_dict
 
 
 def cmd_create(args: argparse.Namespace) -> int:
@@ -73,6 +75,41 @@ def cmd_search(args: argparse.Namespace) -> int:
     for m in hits:
         print(f"{m.get('id')}\t{m.get('title')}")
     print(f"# {len(hits)} hit(s)", file=sys.stderr)
+    return 0
+
+
+def cmd_related(args: argparse.Namespace) -> int:
+    packs_dir = Path(args.packs_dir) if args.packs_dir else None
+    result = related_packs(args.pack_id, packs_dir)
+    if not result.get("ok"):
+        print(result.get("error", "error"), file=sys.stderr)
+        return 1
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_sign(args: argparse.Namespace) -> int:
+    path = Path(args.path)
+    data = json.loads(path.read_text(encoding="utf-8"))
+    key = load_key(args.key_file)
+    signed = sign_pack_dict(data, key, key_id=args.key_id)
+    out = Path(args.output) if args.output else path
+    out.write_text(json.dumps(signed, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Signed {out} (alg=hmac-sha256 key_id={args.key_id})")
+    return 0
+
+
+def cmd_verify(args: argparse.Namespace) -> int:
+    path = Path(args.path)
+    data = json.loads(path.read_text(encoding="utf-8"))
+    key = load_key(args.key_file)
+    errs = verify_pack_dict(data, key, key_id=args.key_id or None)
+    if errs:
+        print("VERIFY FAIL")
+        for e in errs:
+            print(f"  - {e}")
+        return 1
+    print("VERIFY OK")
     return 0
 
 
@@ -165,6 +202,24 @@ def main(argv: list[str] | None = None) -> int:
     p_search.add_argument("query")
     p_search.add_argument("--packs-dir", default=None)
     p_search.set_defaults(func=cmd_search)
+
+    p_rel = sub.add_parser("related", help="Show relation graph around a pack id")
+    p_rel.add_argument("pack_id")
+    p_rel.add_argument("--packs-dir", default=None)
+    p_rel.set_defaults(func=cmd_related)
+
+    p_sign = sub.add_parser("sign", help="HMAC-SHA256 sign a pack (experimental local trust)")
+    p_sign.add_argument("path")
+    p_sign.add_argument("--key-file", required=True)
+    p_sign.add_argument("--key-id", default="local")
+    p_sign.add_argument("-o", "--output", help="Output path (default: overwrite)")
+    p_sign.set_defaults(func=cmd_sign)
+
+    p_ver = sub.add_parser("verify", help="Verify HMAC-SHA256 pack signature")
+    p_ver.add_argument("path")
+    p_ver.add_argument("--key-file", required=True)
+    p_ver.add_argument("--key-id", default="")
+    p_ver.set_defaults(func=cmd_verify)
 
     p_index = sub.add_parser("index", help="Build packs/index.json")
     p_index.add_argument("--packs-dir", default="packs")

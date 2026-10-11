@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from .graph import related_packs
 from .mcp_server import (
     get_pack,
     list_packs,
@@ -68,6 +69,11 @@ def main() -> None:
         """Search local Knowledge Packs by keyword."""
         hits = search_packs(query, _packs_dir())
         return _json({"ok": True, "query": query, "count": len(hits), "packs": hits})
+
+    @mcp.tool()
+    def related_packs_tool(pack_id: str) -> str:
+        """Show relation graph around a pack id."""
+        return _json(related_packs(pack_id, _packs_dir()))
 
     @mcp.resource("openfeed://pack/{pack_id}")
     def pack_resource(pack_id: str) -> str:

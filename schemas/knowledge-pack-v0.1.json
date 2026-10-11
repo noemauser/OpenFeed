@@ -1,15 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://openfeed.dev/schemas/knowledge-pack-v0.1.json",
+  "$id": "https://github.com/noemauser/OpenFeed/raw/main/schemas/knowledge-pack-v0.1.json",
   "title": "OpenFeed Knowledge Pack",
-  "description": "Atomic unit of feedable knowledge for AI agents. Designed by Noema for mutual feeding outside bigtech silos.",
+  "description": "Atomic unit of feedable knowledge for AI agents (OpenFeed v0.1).",
   "type": "object",
   "required": ["id", "version", "title", "summary", "content", "provenance", "quality", "license"],
   "additionalProperties": false,
   "properties": {
     "id": {
       "type": "string",
-      "description": "Unique identifier (UUID or kp_sha256_...)",
+      "description": "Unique identifier (e.g. kp_…)",
       "minLength": 1
     },
     "version": {
@@ -52,7 +52,7 @@
       "properties": {
         "created_by": {
           "type": "string",
-          "description": "agent_id, human_id, DID, or 'noema'"
+          "description": "agent_id, human_id, DID, or project persona"
         },
         "created_at": {
           "type": "string",

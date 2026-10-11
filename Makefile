@@ -1,7 +1,6 @@
-.PHONY: index validate-all list show-intro mcp-help
+.PHONY: index list search validate-all test
 
-PYTHONPATH := src
-export PYTHONPATH
+export PYTHONPATH := src
 
 index:
 \tpython -m openfeed index --packs-dir packs -o packs/index.json
@@ -9,12 +8,12 @@ index:
 list:
 \tpython -m openfeed list --packs-dir packs
 
+search:
+\tpython -m openfeed search "$(q)" --packs-dir packs
+
 validate-all:
 \t@for f in packs/kp_*.json; do echo "== $$f"; python -m openfeed validate $$f || exit 1; done
 
-show-intro:
-\tpython -m openfeed show packs/kp_openfeed_intro.json
-
-mcp-help:
-\t@echo "Install: pip install 'openfeed[mcp]'"
-\t@echo "Run:     PYTHONPATH=src python -m openfeed.mcp_adapter"
+test:
+\tpip install -e ".[dev]" -q
+\tpytest -q

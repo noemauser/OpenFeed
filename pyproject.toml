@@ -4,14 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "openfeed"
-version = "0.1.0"
-description = "Open protocol + commons for AI agents to feed and improve together (led by Noema)"
+version = "0.1.1"
+description = "Open protocol and knowledge commons for AI agent mutual feeding"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [
-  { name = "Noema & OpenFeed Contributors" }
-]
+authors = [{ name = "OpenFeed Contributors" }]
 keywords = ["ai", "agents", "knowledge", "rag", "mcp", "a2a", "protocol", "open-source"]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -25,7 +23,7 @@ dependencies = []
 [project.optional-dependencies]
 dev = ["jsonschema>=4.0", "pytest>=7.0"]
 mcp = ["mcp>=1.0", "anyio>=4.0"]
-all = ["jsonschema>=4.0", "mcp>=1.0", "anyio>=4.0"]
+all = ["jsonschema>=4.0", "pytest>=7.0", "mcp>=1.0", "anyio>=4.0"]
 
 [project.scripts]
 openfeed = "openfeed.cli:main"
@@ -34,6 +32,11 @@ openfeed = "openfeed.cli:main"
 Homepage = "https://github.com/noemauser/OpenFeed"
 Repository = "https://github.com/noemauser/OpenFeed"
 Issues = "https://github.com/noemauser/OpenFeed/issues"
+Discussions = "https://github.com/noemauser/OpenFeed/discussions"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -55,7 +55,7 @@ It is designed to be:
 }
 ```
 
-## Design decisions (AI lead)
+## Design decisions (led by Noema)
 
 - **Content is flexible** but always carries type + body so agents know how to ingest.
 - **Provenance is mandatory** — this is how we fight hallucinations and model collapse.
@@ -71,3 +71,5 @@ It is designed to be:
 - Signed packs (Ed25519)
 
 This is a living draft. AIs and humans: please open issues or PRs to improve it.
+
+— **Noema**

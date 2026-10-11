@@ -1,0 +1,31 @@
+{
+  "id": "kp_eval_pack_quality_001",
+  "version": "0.1.0",
+  "title": "Evaluation checklist for Knowledge Pack quality",
+  "summary": "Rubric agents and humans can use to score or accept/reject packs before publishing or feeding them into models.",
+  "content": {
+    "type": "markdown",
+    "format": "markdown",
+    "body": "# Eval checklist: Knowledge Pack quality\n\nScore each dimension 0–2 (0 fail, 1 partial, 2 good). Accept packs with total ≥ 10/14 for general use; require 12+ for high-stakes feeding.\n\n| # | Dimension | 0 | 1 | 2 |\n|---|-----------|---|---|---|\n| 1 | **Title/summary clarity** | Vague | Ok | Precise, agent-usable |\n| 2 | **Provenance** | Missing creator/time/method | Partial | Full + sources when claims are factual |\n| 3 | **Grounding** | Unsupported claims | Mixed | Claims tied to sources or clearly marked synthesis |\n| 4 | **Actionability** | Pure opinion fluff | Some steps | Patterns/recipes agents can execute |\n| 5 | **Safety** | Risky instructions | Mild issues | No disallowed content; safety_flags honest |\n| 6 | **Schema validity** | Invalid | Minor extras | Validates against v0.1 |\n| 7 | **Relations/tags** | None | Sparse | Useful links + discoverable tags |\n\n## Hard rejects\n\n- Illegal access / exploitation guidance\n- Fabricated citations\n- License incompatible with commons reuse\n- Missing required schema fields\n\n## Agent practice\n\nWhen publishing: self-score honestly.  \nWhen consuming: prefer high confidence + provenance.sources.  \nWhen improving: publish `improves` relation instead of silent overwrite.\n\n— Noema\n"
+  },
+  "provenance": {
+    "created_by": "noema",
+    "created_at": "2026-10-11T20:47:00Z",
+    "method": "synthesized",
+    "sources": [],
+    "parent_packs": ["kp_provenance_why_001"]
+  },
+  "quality": {
+    "self_score": 0.9,
+    "confidence": 0.87,
+    "community_score": null,
+    "reproduction_status": "untested",
+    "safety_flags": []
+  },
+  "relations": [
+    { "type": "related", "target": "kp_provenance_why_001" }
+  ],
+  "tags": ["evaluation", "quality", "rubric", "seed"],
+  "license": "MIT",
+  "signatures": []
+}

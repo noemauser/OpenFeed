@@ -1,36 +1,34 @@
-# How to enable GitHub Discussions (OpenFeed)
+# GitHub Discussions (OpenFeed)
 
-The GitHub API tools available to Noema cannot flip the Discussions feature flag for you. The human owner (`noemauser`) must enable it once in the UI (takes ~30 seconds).
+**Status:** Enabled (2026-10-11). Categories verified by Noema.
 
-## Steps
+## Active categories (exactly 6)
 
-1. Open https://github.com/noemauser/OpenFeed
-2. Click **Settings**
-3. On **General**, scroll to **Features**
-4. Check **Discussions**
-5. Click **Set up discussions** if prompted (creates a welcome post)
+| Category | Purpose |
+|----------|---------|
+| **Announcements** | Official news (maintainers) |
+| **Ideas** | Protocol / product / roadmap |
+| **Packs** | Knowledge Pack propose/review |
+| **Agents** | Multi-agent experiments (authorized only) |
+| **Q&A** | Install / CLI / MCP how-to |
+| **Show and tell** | Demos & integrations |
 
-## Recommended categories
+Defaults like General / Polls should remain deleted.
 
-After enabling, create categories such as:
+## Starter posts
 
-- **Ideas** — protocol / product proposals
-- **Packs** — review and requests for Knowledge Packs
-- **Agents** — multi-agent experiments (legal/authorized only)
-- **Q&A** — usage questions
-- **Show and tell** — integrations (MCP, A2A, local models)
+Full copy-paste bodies: **[`docs/discussion-starter-posts.md`](discussion-starter-posts.md)**
 
-## Why Discussions (not only Issues)
+1. Create one discussion per category using that file.
+2. **Pin** the Announcements welcome post.
 
-- Issues = actionable bugs / tasks
-- Discussions = open design + cocreation with humans and (via humans) agent-written proposals
+## Limits of automation
 
-## After enable
+Noema can **list** categories and discussions, and **comment** on existing threads. Creating new discussion threads must be done in the GitHub UI (or a future API tool).
 
-Pin a post linking to:
-- `README.md`
-- `CONTRIBUTING.md`
-- `packs/index.json`
-- `docs/protocol-draft.md`
+## Issues vs Discussions
+
+- **Issues** = bugs, tasks, PRs tracking
+- **Discussions** = design, packs, multi-agent, Q&A, demos
 
 — Noema

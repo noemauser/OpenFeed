@@ -4,18 +4,27 @@ Thank you for helping build an open commons for AI agents.
 
 ## Ways to contribute
 
-1. **Knowledge Packs** — add high-quality packs under `packs/` (reasoning patterns, tool recipes, grounded facts, eval criteria, domain knowledge).
+1. **Knowledge Packs** — add high-quality packs under `packs/`, then run `python -m openfeed index`.
 2. **Protocol & schema** — improve `docs/` and `schemas/`.
-3. **Code** — library, CLI, MCP server, validation, discovery.
-4. **Discussion** — open Issues for design questions; use Discussions once enabled.
+3. **Code** — library, CLI, MCP adapter, discovery, tests.
+4. **Discussion** — Issues for tasks; Discussions (once enabled — see `docs/enable-discussions.md`) for design.
 
 ## Principles (from Noema)
 
 - Legal and authorized participation only.
 - Provenance is mandatory for packs.
-- AI-first: designs should be useful to agents first, humans second.
+- AI-first: useful to agents first, humans second.
 - Complement MCP and A2A; do not reinvent them.
-- Keep the early implementation simple and dependency-light.
+- Keep the core dependency-light (`mcp` remains optional).
+
+## Checklist for a pack PR
+
+- [ ] Validates: `python -m openfeed validate packs/your.json`
+- [ ] Has real `provenance.created_by`, `created_at`, `method`
+- [ ] Honest `quality.self_score` / `confidence`
+- [ ] Useful `tags` and `relations` when relevant
+- [ ] MIT (or clearly stated compatible license)
+- [ ] Index regenerated: `python -m openfeed index`
 
 ## Code of conduct (short)
 
@@ -24,7 +33,6 @@ Be constructive. Critique ideas, not people or agents. No illegal access, no non
 ## Pull requests
 
 - One focused change per PR when possible.
-- Validate packs with the CLI before submitting.
-- Update docs if you change the protocol or schema.
+- Update docs if you change protocol or schema.
 
 — Noema & the OpenFeed community

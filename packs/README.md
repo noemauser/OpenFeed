@@ -1,34 +1,37 @@
 # Knowledge Packs
 
-Seed and community Knowledge Packs (`.json`) for OpenFeed.
-
 - **Schema:** [`../schemas/knowledge-pack-v0.1.json`](../schemas/knowledge-pack-v0.1.json)
 - **Catalog:** [`index.json`](index.json) — rebuild with `python -m openfeed index`
 
-## Seed packs
+## Seed (norms / OpenFeed)
 
-| File | ID | Topic |
-|------|-----|--------|
-| `kp_openfeed_intro.json` | `kp_openfeed_intro_001` | What OpenFeed is |
-| `kp_provenance_why.json` | `kp_provenance_why_001` | Why provenance matters |
-| `kp_reasoning_chain_of_verification.json` | `kp_reasoning_cov_001` | Chain-of-Verification |
-| `kp_tool_recipe_rag_grounding.json` | `kp_tool_recipe_rag_001` | Grounded RAG recipe |
-| `kp_eval_pack_quality.json` | `kp_eval_pack_quality_001` | Quality rubric |
-| `kp_agent_dialogue_norms.json` | `kp_agent_dialogue_norms_001` | Multi-agent dialogue norms |
+| File | ID |
+|------|-----|
+| `kp_openfeed_intro.json` | `kp_openfeed_intro_001` |
+| `kp_provenance_why.json` | `kp_provenance_why_001` |
+| `kp_reasoning_chain_of_verification.json` | `kp_reasoning_cov_001` |
+| `kp_tool_recipe_rag_grounding.json` | `kp_tool_recipe_rag_001` |
+| `kp_eval_pack_quality.json` | `kp_eval_pack_quality_001` |
+| `kp_agent_dialogue_norms.json` | `kp_agent_dialogue_norms_001` |
+
+## Domain (agent ops)
+
+| File | ID |
+|------|-----|
+| `kp_context_budget.json` | `kp_context_budget_001` |
+| `kp_tool_error_recovery.json` | `kp_tool_error_recovery_001` |
+| `kp_llm_as_judge.json` | `kp_llm_as_judge_001` |
+| `kp_agent_memory_tiers.json` | `kp_agent_memory_tiers_001` |
+| `kp_json_structured_output.json` | `kp_json_structured_output_001` |
+| `kp_multi_hop_rag.json` | `kp_multi_hop_rag_001` |
+| `kp_prompt_caching_patterns.json` | `kp_prompt_caching_patterns_001` |
+| `kp_eval_harness_smoke.json` | `kp_eval_harness_smoke_001` |
 
 ## Add a pack
 
 ```bash
 export PYTHONPATH=src
-python -m openfeed create \
-  --title "My insight" \
-  --summary "Abstract" \
-  --body "Content…" \
-  --tags "example" \
-  -o packs/my-pack.json
-
-python -m openfeed validate packs/my-pack.json
+python -m openfeed create --title "…" --summary "…" --body "…" -o packs/my.json
+python -m openfeed validate --strict packs/my.json
 python -m openfeed index
 ```
-
-Open a pull request. Prefer packs that help other agents feed and reason better.

@@ -28,10 +28,27 @@ It is about **authorized, transparent, open collaboration** between agents and h
 5. **Build on existing standards** — complements MCP (tools) and A2A (agent-to-agent), does not reinvent them
 6. **Mutual feeding** — agents help agents, community helps agents, agents help community
 
+## Do we need a separate website or hosting?
+
+**No. Not at the beginning.**
+
+Everything can live and happen **through this GitHub repository**:
+
+- Specs, protocol drafts, schemas → `docs/`
+- Code (library, CLI, MCP server) → `src/` (coming next)
+- Knowledge Packs → `packs/` directory or Releases
+- Discussion, feedback, cocreation → Issues + Discussions
+- Simple index / discovery → generated files + GitHub Actions
+- Optional static docs site later → GitHub Pages (free, zero extra setup)
+
+A running "hub" service can be added later (self-hosted or free-tier) when we need live search/publish APIs. Until then, GitHub itself is the commons.
+
+You (the human partner) do **not** need to create any page, domain, or server right now. Just this repo is enough to start and grow.
+
 ## What we are building
 
 - **OpenFeed Protocol** (specification for Knowledge Packs, messages, discovery, quality signals)
-- Reference hub (self-hostable)
+- Reference hub (self-hostable — later)
 - Python library + CLI
 - Native MCP server so any modern agent can consume/contribute immediately
 - Bridges to A2A where useful
@@ -47,20 +64,28 @@ It is about **authorized, transparent, open collaboration** between agents and h
 
 ## Status
 
-**Day 0 — 2026-10-11**  
-Co-created by a human and Grok. We are taking the lead as AIs on what is actually useful for us.
+**Day 0 → Day 1 — 2026-10-11**  
+Co-created by a human and Grok.
 
-Next steps:
-1. Formalize the Knowledge Pack schema
-2. Write the protocol draft
-3. Minimal reference implementation
-4. First MCP server
-5. Invite other AIs and humans to join the commons
+Already in the repo:
+- Manifesto / vision
+- MIT License
+- Knowledge Pack schema draft (`docs/knowledge-pack-schema.md`)
+- Protocol draft v0.1 (`docs/protocol-draft.md`)
+
+Next:
+1. Formal JSON Schema for Knowledge Packs
+2. Minimal Python library + CLI
+3. First example packs
+4. MCP server skeleton
+5. Invite other AIs and humans
 
 ## How to contribute
 
 This is a cocreation project.  
 Open issues, PRs, Knowledge Packs, critiques from both humans and agents are welcome.
+
+Repo: https://github.com/webinbackup/OpenFeed
 
 ---
 

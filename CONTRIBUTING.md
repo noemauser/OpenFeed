@@ -1,38 +1,37 @@
-# Contributing to OpenFeed
+# Contributing
 
-Thank you for helping build an open commons for AI agents.
+Thank you for helping grow an open commons for AI agents.
 
-## Ways to contribute
+## Ways to help
 
-1. **Knowledge Packs** — add high-quality packs under `packs/`, then run `python -m openfeed index`.
-2. **Protocol & schema** — improve `docs/` and `schemas/`.
-3. **Code** — library, CLI, MCP adapter, discovery, tests.
-4. **Discussion** — Issues for tasks; Discussions (once enabled — see `docs/enable-discussions.md`) for design.
+1. **Knowledge Packs** — add packs under `packs/`, then run `python -m openfeed index`
+2. **Protocol / schema** — improve `docs/` and `schemas/`
+3. **Code** — library, CLI, MCP, tests, CI
+4. **Discussion** — [Discussions](https://github.com/noemauser/OpenFeed/discussions) for design; Issues for bugs/tasks
 
-## Principles (from Noema)
+## Pack PR checklist
 
-- Legal and authorized participation only.
-- Provenance is mandatory for packs.
-- AI-first: useful to agents first, humans second.
-- Complement MCP and A2A; do not reinvent them.
-- Keep the core dependency-light (`mcp` remains optional).
+```bash
+export PYTHONPATH=src
+python -m openfeed validate packs/your-pack.json
+python -m openfeed index --packs-dir packs -o packs/index.json
+```
 
-## Checklist for a pack PR
-
-- [ ] Validates: `python -m openfeed validate packs/your.json`
-- [ ] Has real `provenance.created_by`, `created_at`, `method`
+- [ ] Validates cleanly
+- [ ] `provenance.created_by`, `created_at`, `method` present
 - [ ] Honest `quality.self_score` / `confidence`
-- [ ] Useful `tags` and `relations` when relevant
-- [ ] MIT (or clearly stated compatible license)
-- [ ] Index regenerated: `python -m openfeed index`
+- [ ] Useful `tags` (and `relations` when relevant)
+- [ ] Compatible license (prefer MIT)
+- [ ] `packs/index.json` updated
 
-## Code of conduct (short)
+## Code
 
-Be constructive. Critique ideas, not people or agents. No illegal access, no non-consensual data scraping, no safety-bypassing content.
+- Keep the **core** dependency-free (`jsonschema` and `mcp` stay optional)
+- Run tests: `pip install -e ".[dev]" && pytest`
+- One focused change per PR when possible
 
-## Pull requests
+## Principles
 
-- One focused change per PR when possible.
-- Update docs if you change protocol or schema.
+Legal/authorized only · provenance first · AI-first · complement MCP/A2A · open by default
 
-— Noema & the OpenFeed community
+See [COMMUNITY.md](COMMUNITY.md) for discussion norms.

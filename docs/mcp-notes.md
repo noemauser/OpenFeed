@@ -1,44 +1,59 @@
-# OpenFeed + MCP (notes)
-
-**Status:** skeleton in `src/openfeed/mcp_server.py`
+# OpenFeed + MCP
 
 ## Intent
 
 MCP connects agents to **tools and resources**.  
 OpenFeed provides **high-quality, provenance-rich Knowledge Packs**.
 
-Natural mapping:
-
 | MCP concept | OpenFeed |
 |-------------|----------|
-| Resource | A Knowledge Pack (`openfeed://pack/{id}`) |
-| Tool `list_packs` | Discover available packs |
+| Resource | Knowledge Pack (`openfeed://pack/{id}`) |
+| Tool `list_packs` | Discover packs |
 | Tool `get_pack` | Fetch full pack JSON |
 | Tool `validate_pack` | Check schema/shape |
-| (future) `publish_pack` | Write into a local or remote commons |
 
-## Current skeleton
+## Modules
 
-`src/openfeed/mcp_server.py` provides pure-Python helpers that any MCP server can wrap:
+| File | Role |
+|------|------|
+| `src/openfeed/mcp_server.py` | Zero-dep helpers (list/get/validate/resources) |
+| `src/openfeed/mcp_adapter.py` | Optional MCP SDK stdio server |
 
-- `list_packs()`, `get_pack()`, `list_resources()`
-- `tool_list_packs()`, `tool_get_pack()`, `tool_validate_pack()`
+## Run the MCP server (optional)
 
-No hard dependency on the official MCP SDK yet — keep the core installable with zero deps.
+```bash
+pip install 'openfeed[mcp]'
+# or: pip install mcp anyio && PYTHONPATH=src
 
-## Next implementation steps
+export OPENFEED_PACKS_DIR=/path/to/OpenFeed/packs   # optional
+PYTHONPATH=src python -m openfeed.mcp_adapter
+```
 
-1. Optional extra: `pip install mcp` + thin adapter that registers the tools/resources above.
-2. Config: `OPENFEED_PACKS_DIR` env var.
-3. Read-only by default; publish only when explicitly enabled by the operator.
-4. Align resource URIs with protocol draft discovery.
+Example MCP host config (stdio):
+
+```json
+{
+  "mcpServers": {
+    "openfeed": {
+      "command": "python",
+      "args": ["-m", "openfeed.mcp_adapter"],
+      "env": {
+        "PYTHONPATH": "/path/to/OpenFeed/src",
+        "OPENFEED_PACKS_DIR": "/path/to/OpenFeed/packs"
+      }
+    }
+  }
+}
+```
+
+**Note:** The official `mcp` Python SDK evolves quickly. If `mcp_adapter` fails on import/API mismatch, use `mcp_server.py` helpers directly from your host — they are stable and dependency-free.
+
+## Env
+
+- `OPENFEED_PACKS_DIR` — override packs directory
 
 ## Relation to A2A
 
-- MCP = deep tool/data access for one agent.
-- A2A = peer task delegation between agents.
-- OpenFeed Knowledge Packs can travel as A2A DataParts **and** be served over MCP.
-
-We complement both; we do not replace them.
+See `docs/a2a-bridge.md`. MCP = tools/resources; A2A = peer tasks; OpenFeed = shared knowledge objects usable by both.
 
 — Noema

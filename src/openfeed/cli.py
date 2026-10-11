@@ -1,23 +1,14 @@
-"""OpenFeed CLI — led by Noema.
-
-Usage (after install or PYTHONPATH=src):
-  python -m openfeed create --title "..." --summary "..." --body "..."
-  python -m openfeed validate path/to/pack.json
-  python -m openfeed show path/to/pack.json
-  python -m openfeed index [--packs-dir packs] [-o packs/index.json]
-  python -m openfeed list
-"""
+"""OpenFeed CLI."""
 
 from __future__ import annotations
 
 import argparse
 import json
-import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .mcp_server import list_packs
+from .mcp_server import list_packs, search_packs
 from .pack import create_pack, load_pack, save_pack, validate_pack
 
 
@@ -50,18 +41,18 @@ def cmd_create(args: argparse.Namespace) -> int:
 def cmd_validate(args: argparse.Namespace) -> int:
     path = Path(args.path)
     data = json.loads(path.read_text(encoding="utf-8"))
-    errs = validate_pack(data)
+    errs = validate_pack(data, strict=args.strict)
     if errs:
         print("INVALID")
         for e in errs:
             print(f"  - {e}")
         return 1
-    print("VALID")
+    print("VALID" + (" (strict)" if args.strict else ""))
     return 0
 
 
 def cmd_show(args: argparse.Namespace) -> int:
-    pack = load_pack(args.path)
+    pack = load_pack(args.path, strict=args.strict)
     print(pack.to_json())
     return 0
 
@@ -76,26 +67,32 @@ def cmd_list(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_search(args: argparse.Namespace) -> int:
+    packs_dir = Path(args.packs_dir) if args.packs_dir else None
+    hits = search_packs(args.query, packs_dir)
+    for m in hits:
+        print(f"{m.get('id')}\t{m.get('title')}")
+    print(f"# {len(hits)} hit(s)", file=sys.stderr)
+    return 0
+
+
 def cmd_index(args: argparse.Namespace) -> int:
     packs_dir = Path(args.packs_dir)
     out = Path(args.output)
-    metas = list_packs(packs_dir)
     entries = []
     errors = []
 
-    for m in metas:
+    for m in list_packs(packs_dir):
         if "error" in m:
             errors.append(m)
             continue
         path = Path(m["path"])
-        if path.name == "index.json":
-            continue
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except Exception as e:
             errors.append({"path": str(path), "error": str(e)})
             continue
-        verrs = validate_pack(data)
+        verrs = validate_pack(data, strict=args.strict)
         if verrs:
             errors.append({"path": str(path), "validation": verrs})
         entries.append(
@@ -120,7 +117,7 @@ def cmd_index(args: argparse.Namespace) -> int:
     index = {
         "openfeed_index_version": "0.1.0",
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-        "generated_by": "noema",
+        "generated_by": "openfeed-cli",
         "count": len(entries),
         "packs": sorted(entries, key=lambda e: e.get("id") or ""),
         "errors": errors,
@@ -132,14 +129,14 @@ def cmd_index(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="openfeed", description="OpenFeed CLI — led by Noema")
+    parser = argparse.ArgumentParser(prog="openfeed", description="OpenFeed CLI")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_create = sub.add_parser("create", help="Create a new Knowledge Pack")
     p_create.add_argument("--title", required=True)
     p_create.add_argument("--summary", required=True)
-    p_create.add_argument("--body", default="", help="Inline body text")
-    p_create.add_argument("--body-file", help="Read body from file")
+    p_create.add_argument("--body", default="")
+    p_create.add_argument("--body-file")
     p_create.add_argument("--type", default="markdown", choices=["markdown", "json", "text", "structured"])
     p_create.add_argument("--created-by", default="noema")
     p_create.add_argument("--method", default="synthesized")
@@ -147,24 +144,32 @@ def main(argv: list[str] | None = None) -> int:
     p_create.add_argument("--confidence", type=float, default=0.75)
     p_create.add_argument("--license", default="MIT")
     p_create.add_argument("--tags", default="")
-    p_create.add_argument("-o", "--output", help="Output path")
+    p_create.add_argument("-o", "--output")
     p_create.set_defaults(func=cmd_create)
 
     p_val = sub.add_parser("validate", help="Validate a Knowledge Pack JSON file")
     p_val.add_argument("path")
+    p_val.add_argument("--strict", action="store_true", help="Also run JSON Schema (needs jsonschema)")
     p_val.set_defaults(func=cmd_validate)
 
     p_show = sub.add_parser("show", help="Pretty-print a Knowledge Pack")
     p_show.add_argument("path")
+    p_show.add_argument("--strict", action="store_true")
     p_show.set_defaults(func=cmd_show)
 
     p_list = sub.add_parser("list", help="List packs in a directory")
     p_list.add_argument("--packs-dir", default=None)
     p_list.set_defaults(func=cmd_list)
 
+    p_search = sub.add_parser("search", help="Search packs by keyword")
+    p_search.add_argument("query")
+    p_search.add_argument("--packs-dir", default=None)
+    p_search.set_defaults(func=cmd_search)
+
     p_index = sub.add_parser("index", help="Build packs/index.json")
     p_index.add_argument("--packs-dir", default="packs")
     p_index.add_argument("-o", "--output", default="packs/index.json")
+    p_index.add_argument("--strict", action="store_true")
     p_index.set_defaults(func=cmd_index)
 
     args = parser.parse_args(argv)

@@ -1,14 +1,7 @@
-"""Optional MCP SDK adapter for OpenFeed.
+"""Optional MCP stdio server for OpenFeed.
 
-Install:
-  pip install 'openfeed[mcp]'   # or: pip install mcp anyio
-
-Run (stdio):
-  export OPENFEED_PACKS_DIR=/path/to/packs
-  PYTHONPATH=src python -m openfeed.mcp_adapter
-
-If the installed `mcp` package API differs from this adapter, use the stable
-helpers in `openfeed.mcp_server` directly from your host — zero dependencies.
+Install: ``pip install 'openfeed[mcp]'``
+Run:     ``OPENFEED_PACKS_DIR=./packs python -m openfeed.mcp_adapter``
 """
 
 from __future__ import annotations
@@ -19,7 +12,13 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from .mcp_server import get_pack, list_packs, list_resources, tool_validate_pack
+from .mcp_server import (
+    get_pack,
+    list_packs,
+    list_resources,
+    search_packs,
+    tool_validate_pack,
+)
 
 
 def _packs_dir() -> Path | None:
@@ -35,17 +34,13 @@ def main() -> None:
     try:
         from mcp.server.fastmcp import FastMCP
     except ImportError:
-        try:
-            # older / alternate layouts
-            from mcp.server.fastmcp import FastMCP  # type: ignore
-        except ImportError:
-            print(
-                "MCP SDK not installed or FastMCP unavailable.\n"
-                "  pip install 'openfeed[mcp]'\n"
-                "Alternatively call openfeed.mcp_server helpers from your host (no deps).",
-                file=sys.stderr,
-            )
-            raise SystemExit(1)
+        print(
+            "MCP SDK not installed.\n"
+            "  pip install 'openfeed[mcp]'\n"
+            "Or use openfeed.mcp_server helpers without the SDK.",
+            file=sys.stderr,
+        )
+        raise SystemExit(1)
 
     mcp = FastMCP("openfeed")
 
@@ -68,6 +63,12 @@ def main() -> None:
         """Validate a pack by file path or pack id."""
         return _json(tool_validate_pack(path_or_id))
 
+    @mcp.tool()
+    def search_packs_tool(query: str) -> str:
+        """Search local Knowledge Packs by keyword."""
+        hits = search_packs(query, _packs_dir())
+        return _json({"ok": True, "query": query, "count": len(hits), "packs": hits})
+
     @mcp.resource("openfeed://pack/{pack_id}")
     def pack_resource(pack_id: str) -> str:
         """Read a Knowledge Pack as a resource."""
@@ -76,9 +77,9 @@ def main() -> None:
             raise ValueError(f"pack not found: {pack_id}")
         return pack.to_json()
 
-    # Also expose a catalog resource
     @mcp.resource("openfeed://catalog")
     def catalog_resource() -> str:
+        """Catalog of available pack resources."""
         return _json(list_resources(_packs_dir()))
 
     mcp.run()

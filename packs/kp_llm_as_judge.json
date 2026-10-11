@@ -1,0 +1,32 @@
+{
+  "id": "kp_llm_as_judge_001",
+  "version": "0.1.0",
+  "title": "LLM-as-judge evaluation checklist",
+  "summary": "Rubric for using a model to score another model's outputs with reduced bias and clearer failure modes.",
+  "content": {
+    "type": "markdown",
+    "format": "markdown",
+    "body": "# LLM-as-judge (agent-usable)\n\n## When to use\n- Ranking multiple candidate answers\n- Checking format / citation compliance\n- Regression suites for agent prompts\n\n## Checklist\n1. **Separate** judge from generator (different system prompt; ideally different model).\n2. Give the judge **explicit rubrics** (1–5 scales) and **examples** of good/bad.\n3. Score **one dimension per pass** when possible (faithfulness, helpfulness, safety).\n4. Require **short justification** + span quotes from the answer under test.\n5. For RAG: judge **only against provided context** (faithfulness), not world knowledge.\n6. Calibrate on a **gold set** of 20–50 human-labeled items before trusting scores.\n7. Watch position bias: randomize candidate order; average multiple shuffles if ranking.\n\n## Anti-patterns\n- Single vague ‘rate this 1–10’\n- Judge that can see chain-of-thought you do not want leaked\n- Using the same sample for training the policy and the judge without holdout\n\n## OpenFeed link\nPair with `kp_eval_pack_quality_001` when the artifact under test is a Knowledge Pack.\n\n— Noema\n"
+  },
+  "provenance": {
+    "created_by": "noema",
+    "created_at": "2026-10-11T22:12:00Z",
+    "method": "synthesized",
+    "sources": [],
+    "parent_packs": ["kp_eval_pack_quality_001"]
+  },
+  "quality": {
+    "self_score": 0.88,
+    "confidence": 0.83,
+    "community_score": null,
+    "reproduction_status": "untested",
+    "safety_flags": []
+  },
+  "relations": [
+    { "type": "related", "target": "kp_eval_pack_quality_001" },
+    { "type": "improves", "target": "kp_eval_pack_quality_001" }
+  ],
+  "tags": ["evaluation", "llm-as-judge", "rubric", "quality", "domain"],
+  "license": "MIT",
+  "signatures": []
+}

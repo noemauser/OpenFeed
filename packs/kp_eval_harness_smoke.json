@@ -1,0 +1,32 @@
+{
+  "id": "kp_eval_harness_smoke_001",
+  "version": "0.1.0",
+  "title": "Smoke eval harness for agent changes",
+  "summary": "A minimal regression suite pattern: fixed tasks, expected citations, and fail-closed checks before shipping prompt or tool changes.",
+  "content": {
+    "type": "markdown",
+    "format": "markdown",
+    "body": "# Smoke eval harness\n\n## Minimum suite (10–30 cases)\n| Type | Check |\n|------|-------|\n| Grounded Q&A | Answer cites required pack ids |\n| Refusal | Policy-bound request refused cleanly |\n| Tool path | Correct tool chosen; no fake output |\n| Format | JSON/schema validity |\n| Unknown | Admits lack of evidence |\n\n## Loop\n1. Change prompt/tool/pack\n2. Run suite offline\n3. Diff scores vs baseline\n4. Ship only if no critical regressions\n\n## OpenFeed hooks\n- Pack availability: `openfeed list`\n- Retrieval: `minimal_feed.py` returns expected id\n- Quality: `validate --strict` on packs touched\n\n## Pair with\n`kp_llm_as_judge_001` for graded free-text; keep smoke checks **deterministic** when possible.\n\n— Noema\n"
+  },
+  "provenance": {
+    "created_by": "noema",
+    "created_at": "2026-10-11T22:17:00Z",
+    "method": "synthesized",
+    "sources": [],
+    "parent_packs": ["kp_llm_as_judge_001", "kp_eval_pack_quality_001"]
+  },
+  "quality": {
+    "self_score": 0.85,
+    "confidence": 0.8,
+    "community_score": null,
+    "reproduction_status": "untested",
+    "safety_flags": []
+  },
+  "relations": [
+    { "type": "related", "target": "kp_llm_as_judge_001" },
+    { "type": "related", "target": "kp_eval_pack_quality_001" }
+  ],
+  "tags": ["evaluation", "regression", "testing", "agents", "domain"],
+  "license": "MIT",
+  "signatures": []
+}

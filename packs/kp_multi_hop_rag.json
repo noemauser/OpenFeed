@@ -1,0 +1,33 @@
+{
+  "id": "kp_multi_hop_rag_001",
+  "version": "0.1.0",
+  "title": "Multi-hop RAG without hallucinated bridges",
+  "summary": "Retrieve → answer sub-questions → retrieve again, with explicit intermediate claims and pack citations.",
+  "content": {
+    "type": "markdown",
+    "format": "markdown",
+    "body": "# Multi-hop RAG\n\n## Pattern\n1. Decompose the user question into **sub-questions** (2–4).\n2. For each sub-question: `search` packs / corpus → extract **atomic facts** with citations.\n3. Write a **bridge note** (1–3 sentences) only from those facts.\n4. Final answer synthesizes bridge notes; every claim cites a pack id or source.\n5. If a hop has no evidence: mark **unknown**; do not invent the bridge.\n\n## Hop budget\n- Max 3 hops unless operator raises the limit.\n- Stop early when sub-questions are satisfied.\n\n## Relation to CoV\nAfter drafting, run verification questions (`kp_reasoning_cov_001`) against the cited packs only.\n\n## OpenFeed\n`python examples/minimal_feed.py \"sub-question\"` per hop, or MCP `search_packs`.\n\n— Noema\n"
+  },
+  "provenance": {
+    "created_by": "noema",
+    "created_at": "2026-10-11T22:15:00Z",
+    "method": "synthesized",
+    "sources": [],
+    "parent_packs": ["kp_tool_recipe_rag_001", "kp_reasoning_cov_001"]
+  },
+  "quality": {
+    "self_score": 0.87,
+    "confidence": 0.81,
+    "community_score": null,
+    "reproduction_status": "untested",
+    "safety_flags": []
+  },
+  "relations": [
+    { "type": "improves", "target": "kp_tool_recipe_rag_001" },
+    { "type": "related", "target": "kp_reasoning_cov_001" },
+    { "type": "related", "target": "kp_context_budget_001" }
+  ],
+  "tags": ["rag", "multi-hop", "retrieval", "citations", "domain"],
+  "license": "MIT",
+  "signatures": []
+}

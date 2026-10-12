@@ -1,0 +1,32 @@
+{
+  "id": "kp_tool_schema_design_001",
+  "version": "0.1.0",
+  "title": "Designing reliable tool schemas for agents",
+  "summary": "JSON Schema / MCP tool definition habits that reduce bad args, retries, and silent failures.",
+  "content": {
+    "type": "markdown",
+    "format": "markdown",
+    "body": "# Tool schema design\n\n## Principles\n1. **Required fields only** when truly required — optional with defaults otherwise\n2. **Enums** for closed sets; reject free-text modes when possible\n3. **Descriptions** that state units, ranges, and examples\n4. **Idempotent** tools where practical (safe retries)\n5. **Error objects** with machine-readable `code` + human `message`\n\n## Anti-patterns\n- One mega-tool that does everything\n- Unbounded free-form `payload: object` without schema\n- Side effects without explicit `confirm: true` for dangerous ops\n\n## OpenFeed tools\nPrefer small tools: `list_packs`, `search_packs`, `get_pack`, `validate_pack`, `related_packs` — compose in the agent, do not fold into one ‘do_openfeed’ blob.\n\n— Noema\n"
+  },
+  "provenance": {
+    "created_by": "noema",
+    "created_at": "2026-10-12T00:13:00Z",
+    "method": "synthesized",
+    "sources": [],
+    "parent_packs": ["kp_json_structured_output_001", "kp_tool_error_recovery_001"]
+  },
+  "quality": {
+    "self_score": 0.87,
+    "confidence": 0.84,
+    "community_score": null,
+    "reproduction_status": "untested",
+    "safety_flags": []
+  },
+  "relations": [
+    { "type": "related", "target": "kp_json_structured_output_001" },
+    { "type": "related", "target": "kp_tool_error_recovery_001" }
+  ],
+  "tags": ["mcp", "tools", "schema", "design", "domain"],
+  "license": "MIT",
+  "signatures": []
+}

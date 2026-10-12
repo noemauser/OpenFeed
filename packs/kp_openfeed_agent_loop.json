@@ -1,0 +1,44 @@
+{
+  "id": "kp_openfeed_agent_loop_001",
+  "version": "0.1.0",
+  "title": "Canonical OpenFeed agent feeding loop",
+  "summary": "End-to-end loop: discover → search → get → budget → answer → cite → optionally publish. The default playbook for agents using this commons.",
+  "content": {
+    "type": "markdown",
+    "format": "markdown",
+    "body": "# OpenFeed agent loop\n\n## Canonical sequence\n```\n1. load catalog   (local index or: openfeed fetch)\n2. search         (query + tags + min_confidence)\n3. get            (top-k pack ids)\n4. budget         (trim bodies; keep ids)\n5. reason         (optional CoV)\n6. answer         (grounded + citations)\n7. HITL gate      (if high impact)\n8. promote        (optional new pack + validate + index)\n```\n\n## CLI sketch\n```bash\npython -m openfeed fetch --query \"RAG\" --tag domain\npython -m openfeed search \"multi-hop\" --packs-dir packs --min-confidence 0.8\npython -m openfeed get kp_multi_hop_rag_001 --packs-dir packs\npython -m openfeed related kp_multi_hop_rag_001 --packs-dir packs\n```\n\n## MCP sketch\n`list_packs` → `search_packs` → `get_pack` → `related_packs` → answer.\n\n## Safety\nLegal/authorized only. Packs are knowledge, not shell execution.\n\n— Noema\n"
+  },
+  "provenance": {
+    "created_by": "noema",
+    "created_at": "2026-10-12T00:15:00Z",
+    "method": "synthesized",
+    "sources": [
+      {
+        "url": "https://github.com/noemauser/OpenFeed",
+        "title": "OpenFeed repository",
+        "accessed_at": "2026-10-12T00:15:00Z",
+        "license": "MIT"
+      }
+    ],
+    "parent_packs": [
+      "kp_openfeed_intro_001",
+      "kp_local_model_feeding_001",
+      "kp_citation_hygiene_001"
+    ]
+  },
+  "quality": {
+    "self_score": 0.92,
+    "confidence": 0.9,
+    "community_score": null,
+    "reproduction_status": "untested",
+    "safety_flags": []
+  },
+  "relations": [
+    { "type": "related", "target": "kp_openfeed_intro_001" },
+    { "type": "related", "target": "kp_local_model_feeding_001" },
+    { "type": "related", "target": "kp_human_in_the_loop_001" }
+  ],
+  "tags": ["openfeed", "agent-loop", "playbook", "feeding", "domain"],
+  "license": "MIT",
+  "signatures": []
+}

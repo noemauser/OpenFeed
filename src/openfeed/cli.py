@@ -9,8 +9,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .graph import related_packs
-from .mcp_server import list_packs, search_packs
+from .mcp_server import get_pack, list_packs, search_packs
 from .pack import create_pack, load_pack, save_pack, validate_pack
+from .remote import (
+    DEFAULT_INDEX_URL,
+    fetch_index,
+    fetch_pack_by_file,
+    find_in_index,
+    try_fetch_json,
+)
 from .sign import load_key, sign_pack_dict, verify_pack_dict
 
 
@@ -59,19 +66,47 @@ def cmd_show(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_get(args: argparse.Namespace) -> int:
+    packs_dir = Path(args.packs_dir) if args.packs_dir else None
+    pack = get_pack(args.pack_id, packs_dir)
+    if pack is None:
+        print(f"not found: {args.pack_id}", file=sys.stderr)
+        return 1
+    print(pack.to_json())
+    return 0
+
+
 def cmd_list(args: argparse.Namespace) -> int:
     packs_dir = Path(args.packs_dir) if args.packs_dir else None
-    for m in list_packs(packs_dir):
+    tags = [t.strip() for t in args.tag.split(",") if t.strip()] if args.tag else None
+    if tags or args.min_confidence is not None or args.query:
+        items = search_packs(
+            args.query or "",
+            packs_dir,
+            tags=tags,
+            min_confidence=args.min_confidence,
+        )
+    else:
+        items = list_packs(packs_dir)
+    for m in items:
         if "error" in m:
             print(f"ERR  {m.get('path')}: {m.get('error')}")
         else:
-            print(f"{m.get('id')}\t{m.get('title')}")
+            conf = m.get("confidence")
+            conf_s = f"\t conf={conf}" if conf is not None else ""
+            print(f"{m.get('id')}\t{m.get('title')}{conf_s}")
     return 0
 
 
 def cmd_search(args: argparse.Namespace) -> int:
     packs_dir = Path(args.packs_dir) if args.packs_dir else None
-    hits = search_packs(args.query, packs_dir)
+    tags = [t.strip() for t in args.tag.split(",") if t.strip()] if args.tag else None
+    hits = search_packs(
+        args.query,
+        packs_dir,
+        tags=tags,
+        min_confidence=args.min_confidence,
+    )
     for m in hits:
         print(f"{m.get('id')}\t{m.get('title')}")
     print(f"# {len(hits)} hit(s)", file=sys.stderr)
@@ -110,6 +145,37 @@ def cmd_verify(args: argparse.Namespace) -> int:
             print(f"  - {e}")
         return 1
     print("VERIFY OK")
+    return 0
+
+
+def cmd_fetch(args: argparse.Namespace) -> int:
+    """Fetch remote index or a pack file over HTTPS."""
+    if args.pack_file:
+        try:
+            data = fetch_pack_by_file(args.pack_file, base_url=args.base)
+        except Exception as e:
+            print(f"fetch failed: {e}", file=sys.stderr)
+            return 1
+        if args.output:
+            Path(args.output).write_text(
+                json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
+            print(f"Wrote {args.output}")
+        else:
+            print(json.dumps(data, ensure_ascii=False, indent=2))
+        return 0
+
+    ok, result = try_fetch_json(args.url)
+    if not ok:
+        print(f"fetch failed: {result}", file=sys.stderr)
+        return 1
+    assert isinstance(result, dict)
+    tags = [t.strip() for t in args.tag.split(",") if t.strip()] if args.tag else None
+    if args.query or tags or args.pack_id:
+        rows = find_in_index(result, pack_id=args.pack_id, query=args.query or "", tags=tags)
+        print(json.dumps({"count": len(rows), "packs": rows}, ensure_ascii=False, indent=2))
+    else:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
 
@@ -189,18 +255,28 @@ def main(argv: list[str] | None = None) -> int:
     p_val.add_argument("--strict", action="store_true", help="Also run JSON Schema (needs jsonschema)")
     p_val.set_defaults(func=cmd_validate)
 
-    p_show = sub.add_parser("show", help="Pretty-print a Knowledge Pack")
+    p_show = sub.add_parser("show", help="Pretty-print a Knowledge Pack from a file path")
     p_show.add_argument("path")
     p_show.add_argument("--strict", action="store_true")
     p_show.set_defaults(func=cmd_show)
 
-    p_list = sub.add_parser("list", help="List packs in a directory")
+    p_get = sub.add_parser("get", help="Load a pack by id from packs dir")
+    p_get.add_argument("pack_id")
+    p_get.add_argument("--packs-dir", default=None)
+    p_get.set_defaults(func=cmd_get)
+
+    p_list = sub.add_parser("list", help="List packs (optional query/tags/confidence)")
     p_list.add_argument("--packs-dir", default=None)
+    p_list.add_argument("--query", default="", help="Optional text filter")
+    p_list.add_argument("--tag", default="", help="Comma-separated tags (AND)")
+    p_list.add_argument("--min-confidence", type=float, default=None)
     p_list.set_defaults(func=cmd_list)
 
     p_search = sub.add_parser("search", help="Search packs by keyword")
     p_search.add_argument("query")
     p_search.add_argument("--packs-dir", default=None)
+    p_search.add_argument("--tag", default="", help="Comma-separated tags (AND)")
+    p_search.add_argument("--min-confidence", type=float, default=None)
     p_search.set_defaults(func=cmd_search)
 
     p_rel = sub.add_parser("related", help="Show relation graph around a pack id")
@@ -220,6 +296,16 @@ def main(argv: list[str] | None = None) -> int:
     p_ver.add_argument("--key-file", required=True)
     p_ver.add_argument("--key-id", default="")
     p_ver.set_defaults(func=cmd_verify)
+
+    p_fetch = sub.add_parser("fetch", help="Fetch remote index or pack over HTTPS")
+    p_fetch.add_argument("--url", default=DEFAULT_INDEX_URL, help="Index URL")
+    p_fetch.add_argument("--base", default="https://raw.githubusercontent.com/noemauser/OpenFeed/main/packs/")
+    p_fetch.add_argument("--pack-file", help="Fetch packs/<file>.json by name")
+    p_fetch.add_argument("--pack-id", default=None, help="Filter index by pack id")
+    p_fetch.add_argument("--query", default="", help="Filter index by text")
+    p_fetch.add_argument("--tag", default="", help="Filter index by tags (AND)")
+    p_fetch.add_argument("-o", "--output", help="Write JSON to file")
+    p_fetch.set_defaults(func=cmd_fetch)
 
     p_index = sub.add_parser("index", help="Build packs/index.json")
     p_index.add_argument("--packs-dir", default="packs")

@@ -25,6 +25,7 @@ jobs:
           cp registry/index.html _site/
           cp packs/index.json _site/index.json
           cp schemas/knowledge-pack-v0.1.json _site/knowledge-pack-v0.1.json
+          cp registry/openfeed-agent-card.json _site/openfeed-agent-card.json
           # convenience: expose pack files
           mkdir -p _site/packs
           cp packs/kp_*.json _site/packs/

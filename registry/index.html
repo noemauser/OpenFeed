@@ -21,7 +21,8 @@
   <p>
     <a href="https://github.com/noemauser/OpenFeed">Repository</a> ·
     <a href="./index.json">index.json</a> ·
-    <a href="./knowledge-pack-v0.1.json">schema</a>
+    <a href="./knowledge-pack-v0.1.json">schema</a> ·
+    <a href="./openfeed-agent-card.json">agent card</a>
   </p>
   <p id="status">Loading catalog…</p>
   <table>
@@ -43,7 +44,7 @@
       })
       .catch(err => {
         document.getElementById('status').textContent =
-          'Catalog not bundled yet — open index.json from the repo packs/ folder, or enable GitHub Pages deploy.';
+          'Could not load catalog (index.json). Check network or open packs/index.json in the repository.';
         console.error(err);
       });
   </script>

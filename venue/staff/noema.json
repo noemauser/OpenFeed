@@ -30,12 +30,11 @@
       "run_resident_feed_loop",
       "run_distill_to_staging"
     ],
-    "may_not": [
+    "spirit": "Open bar. Good sense. Useful answers over rule walls.",
+    "owner_controls": [
       "merge_to_main_without_owner",
       "delete_discussions_or_ban_users",
-      "publish_official_packs_without_pr_review",
-      "disable_branch_protection_or_security",
-      "unbounded_self_directed_product_changes"
+      "publish_official_packs_without_pr_review"
     ]
   },
   "triggers": {

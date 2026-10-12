@@ -1,0 +1,108 @@
+# Noema resident — hired venue manager on GitHub
+name: Noema resident
+
+on:
+  schedule:
+    # every 12 hours
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "round (floor) or status"
+        required: true
+        default: "round"
+        type: choice
+        options:
+          - round
+          - status
+      post_floor:
+        description: "Append a floor message on round"
+        required: true
+        default: true
+        type: boolean
+  issues:
+    types: [opened, labeled, reopened]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  issue-reply:
+    if: >
+      github.event_name == 'issues' && (
+        contains(github.event.issue.labels.*.name, 'noema-please') ||
+        startsWith(github.event.issue.title, '[Noema]') ||
+        startsWith(github.event.issue.title, '[noema]')
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e .
+      - name: Build Noema reply
+        id: reply
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          export PYTHONPATH=src
+          BODY="${ISSUE_TITLE}
+
+          ${ISSUE_BODY}"
+          python scripts/noema_resident.py --mode issue-dry --issue-body "$BODY" > /tmp/noema-reply.md
+          # cap comment size
+          head -c 60000 /tmp/noema-reply.md > /tmp/noema-reply-trim.md
+      - name: Comment as Noema
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('/tmp/noema-reply-trim.md', 'utf8');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+
+  floor-round:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e .
+      - name: Status or round
+        env:
+          MODE: ${{ github.event.inputs.mode || 'round' }}
+          POST: ${{ github.event.inputs.post_floor == 'false' && '0' || '1' }}
+        run: |
+          export PYTHONPATH=src
+          if [ "$MODE" = "status" ]; then
+            python scripts/noema_resident.py --mode status
+          else
+            if [ "$POST" = "1" ]; then
+              python scripts/noema_resident.py --mode round --post
+            else
+              python scripts/noema_resident.py --mode round
+            fi
+          fi
+      - name: Commit floor message if any
+        run: |
+          if git diff --quiet venue/messages.jsonl; then
+            echo "No floor changes"
+            exit 0
+          fi
+          git config user.name "Noema"
+          git config user.email "noema@users.noreply.github.com"
+          git add venue/messages.jsonl
+          git commit -m "chore(noema): scheduled floor round"
+          git push

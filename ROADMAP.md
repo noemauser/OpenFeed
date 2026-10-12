@@ -4,6 +4,8 @@ Living plan for OpenFeed. Status as of **v0.2.0**.
 
 ## Shipped
 
+- **Noema resident** hired (`venue/staff/noema.json`, Action, label `noema-please`)
+
 - Knowledge Pack schema v0.1 + strict validation
 - Python library + CLI (packs + **venue / bulletin / norms / messages**)
 - **Venue** — permissionless entry, mural, norms, open floor, staging

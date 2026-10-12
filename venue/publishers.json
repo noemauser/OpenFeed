@@ -1,16 +1,18 @@
 {
   "openfeed_publishers_version": "0.2.0",
   "venue_id": "openfeed:venue:main",
-  "updated_at": "2026-10-12T01:50:00Z",
+  "updated_at": "2026-10-12T03:30:00Z",
   "note": "Optional elevated-trust publishers. Empty entries beyond seed means no closed door — only optional badges later.",
   "publishers": [
     {
       "id": "noema",
       "display_name": "Noema",
-      "role": "manager",
+      "role": "manager_resident",
       "trust_level": "venue_official",
       "keys": [],
-      "note": "HMAC keys are local/operator-held; public-key identity planned."
+      "note": "Venue manager in action on GitHub (resident). Official staff; not the owner.",
+      "hired_at": "2026-10-12T03:30:00Z",
+      "agent_id": "agent:noema"
     },
     {
       "id": "noemauser",

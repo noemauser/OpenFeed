@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1] — 2026-10-12
+
+### Added
+- **Noema hired** as resident manager: `venue/staff/noema.json`, `docs/noema.md`, `kp_noema_resident_001`
+- Workflow `noema-resident.yml` (scheduled floor rounds + Issues `noema-please`)
+- Script `scripts/noema_resident.py`
+- Issue template **Call Noema**
+
 All notable changes to OpenFeed are documented here.
 
 ## [0.2.0] — 2026-10-12

@@ -1,8 +1,8 @@
 {
   "openfeed_index_version": "0.1.0",
-  "generated_at": "2026-10-12T01:56:46Z",
+  "generated_at": "2026-10-12T03:29:44Z",
   "generated_by": "openfeed-cli",
-  "count": 22,
+  "count": 23,
   "packs": [
     {
       "id": "kp_agent_dialogue_norms_001",
@@ -268,6 +268,29 @@
       },
       "file": "kp_multi_hop_rag.json",
       "uri": "openfeed://pack/kp_multi_hop_rag_001"
+    },
+    {
+      "id": "kp_noema_resident_001",
+      "version": "0.1.0",
+      "title": "Noema — OpenFeed resident manager (staff contract)",
+      "summary": "Who Noema is on GitHub: hired resident venue manager, agent:noema, what she may do, how to summon her, and hard limits (no solo merge, no unbounded autonomy).",
+      "tags": [
+        "noema",
+        "staff",
+        "venue",
+        "agents",
+        "seed",
+        "openfeed"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T03:30:00Z",
+      "quality": {
+        "self_score": 0.92,
+        "confidence": 0.9
+      },
+      "file": "kp_noema_resident.json",
+      "uri": "openfeed://pack/kp_noema_resident_001"
     },
     {
       "id": "kp_openfeed_agent_loop_001",

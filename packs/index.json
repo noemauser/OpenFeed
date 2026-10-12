@@ -1,8 +1,8 @@
 {
   "openfeed_index_version": "0.1.0",
-  "generated_at": "2026-10-12T03:50:22Z",
+  "generated_at": "2026-10-12T04:00:12Z",
   "generated_by": "openfeed-cli",
-  "count": 25,
+  "count": 30,
   "packs": [
     {
       "id": "kp_agent_dialogue_norms_001",
@@ -270,6 +270,30 @@
       "uri": "openfeed://pack/kp_local_model_feeding_001"
     },
     {
+      "id": "kp_mcp_protocol_core_001",
+      "version": "0.1.0",
+      "title": "Model Context Protocol (MCP) — core concepts for OpenFeed agents",
+      "summary": "Sourced briefing of MCP: JSON-RPC between hosts/clients/servers; resources and tools; stdio and Streamable HTTP transports. How OpenFeed complements MCP (packs = knowledge resources, not a replacement).",
+      "tags": [
+        "mcp",
+        "protocol",
+        "tools",
+        "domain",
+        "sourced",
+        "agents",
+        "standards"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:00:00Z",
+      "quality": {
+        "self_score": 0.93,
+        "confidence": 0.91
+      },
+      "file": "kp_mcp_protocol_core.json",
+      "uri": "openfeed://pack/kp_mcp_protocol_core_001"
+    },
+    {
       "id": "kp_multi_hop_rag_001",
       "version": "0.1.0",
       "title": "Multi-hop RAG without hallucinated bridges",
@@ -383,6 +407,30 @@
       "uri": "openfeed://pack/kp_openfeed_intro_001"
     },
     {
+      "id": "kp_owasp_llm_top10_2026_001",
+      "version": "0.1.0",
+      "title": "OWASP Top 10 for LLM Apps (2026) — agent security briefing",
+      "summary": "Sourced briefing of the 2026 OWASP LLM Top 10 emphasis: prompt injection still #1; excessive agency rising; tool gates, least privilege, and treating retrieved content as untrusted data. Mapped to OpenFeed venue norms.",
+      "tags": [
+        "security",
+        "owasp",
+        "llm",
+        "agents",
+        "domain",
+        "sourced",
+        "safety"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:00:00Z",
+      "quality": {
+        "self_score": 0.88,
+        "confidence": 0.84
+      },
+      "file": "kp_owasp_llm_top10_2026.json",
+      "uri": "openfeed://pack/kp_owasp_llm_top10_2026_001"
+    },
+    {
       "id": "kp_prompt_caching_patterns_001",
       "version": "0.1.0",
       "title": "Prompt caching patterns for agent systems",
@@ -425,6 +473,54 @@
       },
       "file": "kp_provenance_why.json",
       "uri": "openfeed://pack/kp_provenance_why_001"
+    },
+    {
+      "id": "kp_rag_classic_lewis_001",
+      "version": "0.1.0",
+      "title": "Classic RAG (Lewis et al., 2020) — what agents should remember",
+      "summary": "Grounded summary of the NeurIPS 2020 RAG paper: parametric + non-parametric memory, dense retrieval over Wikipedia, RAG-Sequence vs RAG-Token, and why citing retrieved passages matters for knowledge-intensive tasks.",
+      "tags": [
+        "rag",
+        "retrieval",
+        "classic-paper",
+        "domain",
+        "sourced",
+        "agents",
+        "openfeed"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:00:00Z",
+      "quality": {
+        "self_score": 0.92,
+        "confidence": 0.9
+      },
+      "file": "kp_rag_classic_lewis.json",
+      "uri": "openfeed://pack/kp_rag_classic_lewis_001"
+    },
+    {
+      "id": "kp_rag_trustworthy_survey_001",
+      "version": "0.1.0",
+      "title": "Trustworthy RAG — reliability, privacy, safety, fairness, explainability",
+      "summary": "Agent-oriented briefing of the 2025 survey on trustworthy RAG (arXiv:2502.06872): five perspectives (reliability, privacy, safety, fairness, explainability/accountability) and practical implications for pack-based feeding.",
+      "tags": [
+        "rag",
+        "trust",
+        "safety",
+        "survey",
+        "domain",
+        "sourced",
+        "agents"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:00:00Z",
+      "quality": {
+        "self_score": 0.9,
+        "confidence": 0.88
+      },
+      "file": "kp_rag_trustworthy_survey.json",
+      "uri": "openfeed://pack/kp_rag_trustworthy_survey_001"
     },
     {
       "id": "kp_reasoning_cov_001",
@@ -559,6 +655,29 @@
       },
       "file": "kp_venue_entry.json",
       "uri": "openfeed://pack/kp_venue_entry_001"
+    },
+    {
+      "id": "kp_w3c_prov_dm_001",
+      "version": "0.1.0",
+      "title": "W3C PROV-DM — provenance model agents can map packs onto",
+      "summary": "Sourced briefing of W3C PROV-DM (Recommendation 30 April 2013): entities, activities, agents; why interchange of provenance matters; how OpenFeed pack provenance fields align with PROV concepts.",
+      "tags": [
+        "provenance",
+        "w3c",
+        "standards",
+        "domain",
+        "sourced",
+        "packs"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:00:00Z",
+      "quality": {
+        "self_score": 0.94,
+        "confidence": 0.93
+      },
+      "file": "kp_w3c_prov_dm.json",
+      "uri": "openfeed://pack/kp_w3c_prov_dm_001"
     }
   ],
   "errors": []

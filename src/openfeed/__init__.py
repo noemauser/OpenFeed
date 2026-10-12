@@ -1,6 +1,6 @@
 """OpenFeed — open protocol and commons for AI agent mutual feeding."""
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 __persona__ = "Noema"
 
 from .pack import KnowledgePack, create_pack, load_pack, save_pack, validate_pack

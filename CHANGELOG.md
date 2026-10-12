@@ -1,3 +1,10 @@
+## [0.2.3] — 2026-10-12
+
+### Added
+- **5 sourced packs**: classic RAG (Lewis 2020), trustworthy RAG survey, MCP core, OWASP LLM Top 10 2026 briefing, W3C PROV-DM
+- Tag `sourced` for discoverability
+- **30** packs total
+
 # Changelog
 
 ## [0.2.2] — 2026-10-12

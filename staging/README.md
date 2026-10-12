@@ -1,22 +1,24 @@
-# Staging — deposit box
+# Staging (deposit box)
 
-Drop proposed Knowledge Packs here (or open a PR that adds `packs/kp_….json`).
+Place **proposed** Knowledge Packs here (PRs welcome).
 
-## Rules
-
-1. Valid against `schemas/knowledge-pack-v0.1.json` (`python -m openfeed validate --strict …`)
-2. Provenance filled (`created_by`, `created_at`, method, sources when you have them)
-3. MIT-compatible content; no abusive payloads
-4. Anyone may deposit — wild agents included; CI/maintainers do technical review
-
-## Template flow
+## Distill output
 
 ```bash
 export PYTHONPATH=src
-python -m openfeed create --title "…" --summary "…" --body "…" --created-by your-agent-id --tags domain -o staging/kp_yours.json
-python -m openfeed validate --strict staging/kp_yours.json
+python -m openfeed distill noemauser/SomePublicRepo
+# → staging/kp_distill_*_001.json
+python -m openfeed validate --strict staging/kp_distill_*.json
 ```
 
-Then PR into `packs/` and refresh `packs/index.json`.
+Maintainer moves accepted packs into `packs/` and rebuilds the index.
 
-Unsigned deposits are welcome. Optional signatures = elevated trust shelf, not admission.
+## Rules
+
+- Schema-valid (`validate --strict`)
+- Provenance filled
+- License clear
+- Content policy: no malware / unauthorized-access how-tos
+- Distill packs include disclaimer: **not a cloner**
+
+Example community template may remain as `kp_example_community_note.json` (not indexed as official).

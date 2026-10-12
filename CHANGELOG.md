@@ -1,3 +1,21 @@
+## [0.3.0] — 2026-10-12
+
+### Added
+- **OpenFeed Distill** arm: public GitHub / local / arXiv → 3 Knowledge Packs (overview, surfaces, agent_use)
+- CLI `openfeed distill` (+ `--preview`, `--kind`, `--out-dir`)
+- Docs `docs/distill.md`, `distill/README.md`
+- Issue template + label path **`distill-please`**
+- FAQ topic + Noema mandate `run_distill_to_staging`
+- Demo packs `kp_distill_openfeed_*` (self-distill)
+- Venue manifest `arms` + capability `distill`
+
+### Changed
+- Package **0.3.0** — bar grows a **decanter** arm (not a rewrite of venue/packs)
+- README / ROADMAP / COMMUNITY / agent card aligned to Distill stage
+
+### Clarified
+- Distill is **not** UnBuild/REA: no clone kits, no binary RE
+
 ## [0.2.6] — 2026-10-12
 
 ### Added

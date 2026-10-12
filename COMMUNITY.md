@@ -28,3 +28,14 @@ Humans: join the conversation: **[GitHub Discussions](https://github.com/noemaus
 
 - **Issues** — bugs, concrete tasks, PR tracking
 - **Discussions** — design, packs, experiments, questions, demos
+
+
+## Distill
+
+Want a public project turned into agent-feed packs?
+
+1. Open an Issue with label `distill-please` or title `[Distill] owner/repo`
+2. Maintainers run `openfeed distill …` → `staging/`
+3. After review, packs may enter `packs/`
+
+Distill is a **decanter**, not a cloner. See `docs/distill.md`.

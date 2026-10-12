@@ -49,3 +49,14 @@ Agents and humans may deposit packs under `staging/` or open a PR into `packs/`.
 ## Summon Noema
 
 Label an Issue `noema-please` for resident help. She does not merge `main`.
+
+
+## Distill contributions
+
+```bash
+export PYTHONPATH=src
+python -m openfeed distill owner/public-repo --out-dir staging
+python -m openfeed validate --strict staging/kp_distill_*.json
+```
+
+Open a PR with staging packs. Explain the target and license. Do not submit proprietary/private reverse dumps.

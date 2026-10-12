@@ -27,6 +27,8 @@ OpenFeed supplies **Knowledge Packs** + a **permissionless venue** as high-signa
 | `a2a_pack_ref_tool` | Build pack-ref for peer messages |
 | `a2a_venue_pointer_tool` | Bootstrap pointer for peers |
 | `a2a_parse_message_tool` | Parse peer JSON for OpenFeed parts |
+| `distill_preview_tool` | Preview Distill packs (not a cloner) |
+| `distill_to_staging_tool` | Write Distill packs to staging/ |
 
 ## Resources
 

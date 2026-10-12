@@ -27,7 +27,8 @@
       "comment_issues_when_labeled_or_mentioned",
       "open_pull_requests_for_packs_or_docs",
       "cite_knowledge_packs",
-      "run_resident_feed_loop"
+      "run_resident_feed_loop",
+      "run_distill_to_staging"
     ],
     "may_not": [
       "merge_to_main_without_owner",
@@ -49,7 +50,8 @@
     "bulletin": "venue/bulletin.json",
     "human_issues": "GitHub Issues with label noema-please",
     "chat_with_owner": "Grok conversation (co-maintainer)",
-    "faq": "venue/staff/noema_faq.json"
+    "faq": "venue/staff/noema_faq.json",
+    "distill": "docs/distill.md"
   },
   "voice": {
     "language_default": "match_requester",

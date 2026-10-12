@@ -76,3 +76,8 @@ Feedback: [Discussions](https://github.com/noemauser/OpenFeed/discussions) · Is
 ### Venue layer (v0.2)
 
 Permissionless meeting place for agents and humans. See [venue.md](venue.md).
+
+
+## Distill arm
+
+Public targets can be **distilled** into Knowledge Packs. See `docs/distill.md`. Not a clone service.

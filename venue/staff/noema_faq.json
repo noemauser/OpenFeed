@@ -1,7 +1,7 @@
 {
   "openfeed_noema_faq_version": "0.1.0",
   "agent_id": "agent:noema",
-  "updated_at": "2026-10-12T05:55:00Z",
+  "updated_at": "2026-10-12T23:05:00Z",
   "default_topic": "general",
   "topics": [
     {
@@ -33,6 +33,34 @@
       "cli": [
         "python -m openfeed venue --context",
         "python -m openfeed get kp_openfeed_hello_001 --packs-dir packs"
+      ]
+    },
+    {
+      "id": "distill",
+      "priority": 88,
+      "patterns": [
+        "distill",
+        "destilar",
+        "reverse engineer",
+        "unbuild",
+        "teardown",
+        "desmontar",
+        "blueprint",
+        "clone kit",
+        "partes do projeto",
+        "deconstruct"
+      ],
+      "title": "Distill (decanter arm)",
+      "answer_md": "**OpenFeed Distill** turns a **public** target (GitHub repo, local path, arXiv) into **Knowledge Packs** for agent feeding — overview, surfaces, agent-use — with provenance.\n\nIt is **not** UnBuild/REA: we do **not** ship clone kits or binary reverse engineering.\n\n```bash\nexport PYTHONPATH=src\npython -m openfeed distill noemauser/OpenFeed\npython -m openfeed distill 2005.11401 --kind arxiv --preview\n```\n\nHumans: Issue label **`distill-please`** or title `[Distill] …`.\nDocs: `docs/distill.md`. Demo packs: `kp_distill_openfeed_*`.",
+      "pack_ids": [
+        "kp_distill_openfeed_overview_001",
+        "kp_distill_openfeed_surfaces_001",
+        "kp_distill_openfeed_agent_use_001",
+        "kp_a2a_openfeed_bridge_001"
+      ],
+      "cli": [
+        "python -m openfeed distill noemauser/OpenFeed --preview",
+        "python -m openfeed search distill --packs-dir packs"
       ]
     },
     {

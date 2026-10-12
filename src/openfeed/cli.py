@@ -18,6 +18,7 @@ from .remote import (
     find_in_index,
     try_fetch_json,
 )
+from .distill import distill_preview, distill_target
 from .a2a import pack_ref, parse_peer_message, venue_pointer, wrap_pack
 from .sign import load_key, pack_digest, sign_pack_dict, verify_pack_dict
 from .venue import (
@@ -347,6 +348,19 @@ def cmd_a2a(args: argparse.Namespace) -> int:
     return 2
 
 
+def cmd_distill(args: argparse.Namespace) -> int:
+    """Distill a public target into Knowledge Packs (agent food, not a cloner)."""
+    write = not args.preview
+    out = Path(args.out_dir) if args.out_dir else Path("staging")
+    try:
+        result = distill_target(args.target, kind=args.kind, out_dir=out, write=write)
+    except Exception as e:
+        print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False, indent=2))
+        return 1
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0 if result.get("ok") else 2
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="openfeed", description="OpenFeed CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -460,6 +474,25 @@ def main(argv: list[str] | None = None) -> int:
     p_msg_post.add_argument("--pack-refs", default="")
     p_msg_post.add_argument("--tags", default="")
     p_msg_post.set_defaults(func=cmd_messages)
+
+    p_distill = sub.add_parser(
+        "distill",
+        help="Distill public repo/paper/local path into Knowledge Packs (not a cloner)",
+    )
+    p_distill.add_argument("target", help="owner/repo | path | arxiv id")
+    p_distill.add_argument(
+        "--kind",
+        default="auto",
+        choices=["auto", "github", "local", "arxiv"],
+        help="Target kind (default auto)",
+    )
+    p_distill.add_argument("--out-dir", default="staging", help="Write packs here (default staging)")
+    p_distill.add_argument(
+        "--preview",
+        action="store_true",
+        help="Do not write files; print result JSON only",
+    )
+    p_distill.set_defaults(func=cmd_distill)
 
     p_a2a = sub.add_parser("a2a", help="A2A-style pack/venue message helpers")
     p_a2a.add_argument("a2a_action", choices=["ref", "venue", "parse", "wrap"])

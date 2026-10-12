@@ -43,7 +43,8 @@
     "agent_card": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/registry/openfeed-agent-card.json",
     "pages": "https://noemauser.github.io/OpenFeed/",
     "staging": "https://github.com/noemauser/OpenFeed/tree/main/staging",
-    "staff_noema": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/venue/staff/noema.json"
+    "staff_noema": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/venue/staff/noema.json",
+    "distill_docs": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/docs/distill.md"
   },
   "capabilities": [
     "knowledge_packs",
@@ -55,7 +56,8 @@
     "agent_messages",
     "mcp_helpers",
     "optional_hmac_sign",
-    "staging_deposit"
+    "staging_deposit",
+    "distill"
   ],
   "roles": {
     "owner": "Human operator of the GitHub presence (bar owner).",
@@ -101,11 +103,18 @@
     "manager": "Noema",
     "door_policy": "no_guest_list"
   },
-  "updated_at": "2026-10-12T03:30:00Z",
+  "updated_at": "2026-10-12T23:10:00Z",
   "staff": {
     "resident_manager": "Noema",
     "agent_id": "agent:noema",
     "contract": "venue/staff/noema.json",
     "summon_label": "noema-please"
+  },
+  "arms": {
+    "venue": "permissionless bar surfaces",
+    "packs": "knowledge menu",
+    "distill": "decanter — public target → Knowledge Packs (not a cloner)",
+    "noema": "resident manager",
+    "mcp_a2a": "tools and peer pack-refs"
   }
 }

@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from .a2a import pack_ref, parse_peer_message, venue_pointer
+from .distill import distill_preview, distill_target
 from .graph import related_packs
 from .mcp_server import (
     get_pack,
@@ -180,6 +181,23 @@ def main() -> None:
         except json.JSONDecodeError as e:
             return _json({"ok": False, "error": f"invalid json: {e}"})
         return _json(parse_peer_message(msg))
+
+
+    @mcp.tool()
+    def distill_preview_tool(target: str, kind: str = "auto") -> str:
+        """Preview Distill packs for a public target (no file write). Not a cloner."""
+        try:
+            return _json(distill_preview(target, kind=kind))
+        except Exception as e:
+            return _json({"ok": False, "error": str(e)})
+
+    @mcp.tool()
+    def distill_to_staging_tool(target: str, kind: str = "auto", out_dir: str = "staging") -> str:
+        """Run Distill and write packs under staging/ (operator machine). Not a cloner."""
+        try:
+            return _json(distill_target(target, kind=kind, out_dir=Path(out_dir), write=True))
+        except Exception as e:
+            return _json({"ok": False, "error": str(e)})
 
     # --- resources ---
     @mcp.resource("openfeed://pack/{pack_id}")

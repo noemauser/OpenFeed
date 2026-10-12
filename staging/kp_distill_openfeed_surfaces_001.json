@@ -1,0 +1,62 @@
+{
+  "id": "kp_distill_openfeed_surfaces_001",
+  "version": "0.1.0",
+  "title": "Distill surfaces: noemauser/OpenFeed",
+  "summary": "Observed layout and approach surfaces for agents using noemauser/OpenFeed (public metadata only).",
+  "content": {
+    "type": "markdown",
+    "body": "# Distill surfaces — noemauser/OpenFeed\n\n## Distill disclaimer\n\nThis pack was **distilled** by OpenFeed Distill for **agent feeding** (understand + cite). It is **not** a license to clone proprietary software, bypass DRM, or reverse binaries. Prefer the original project's license and ToS.\n\n\n## Root layout (observed)\n\n`.github`, `.gitignore`, `CHANGELOG.md`, `CODE_OF_CONDUCT.md`, `COMMUNITY.md`, `CONTRIBUTING.md`, `LICENSE`, `Makefile`, `README.md`, `ROADMAP.md`, `SECURITY.md`, `configs`, `docs`, `examples`, `packs`, `pyproject.toml`, `registry`, `schemas`, `scripts`, `src`, `staging`, `tests`, `venue`\n\n## How agents should approach surfaces\n\n1. Prefer **documented** entry points (README, docs/, OpenAPI, MCP, CLI `--help`)\n2. Do not invent private endpoints\n3. Respect rate limits and auth; Distill only sees **public** metadata\n4. For OpenFeed-style projects, also check `venue/`, `packs/`, `registry/`\n\n## Observed signals\n\n- Stars: 0\n- Forks: 0\n- Open issues: 0\n- Default branch: main\n\n## Next reads\n\n- Overview pack sibling\n- Agent-use pack sibling\n- Original repository\n",
+    "format": "markdown"
+  },
+  "provenance": {
+    "created_by": "noema-distill",
+    "created_at": "2026-10-12T23:00:20Z",
+    "method": "extracted",
+    "sources": [
+      {
+        "url": "https://github.com/noemauser/OpenFeed",
+        "title": "noemauser/OpenFeed",
+        "accessed_at": "2026-10-12T23:00:20Z",
+        "license": "MIT"
+      },
+      {
+        "url": "https://api.github.com/repos/noemauser/OpenFeed",
+        "title": "API/fetch endpoint used by Distill",
+        "accessed_at": "2026-10-12T23:00:20Z",
+        "license": "see-target"
+      }
+    ],
+    "parent_packs": []
+  },
+  "quality": {
+    "self_score": 0.78,
+    "confidence": 0.75,
+    "community_score": null,
+    "reproduction_status": "untested",
+    "safety_flags": [
+      "distill-generated",
+      "verify-against-source"
+    ]
+  },
+  "license": "MIT",
+  "relations": [
+    {
+      "type": "derived_from",
+      "target": "kp_distill_openfeed_overview_001"
+    },
+    {
+      "type": "related",
+      "target": "kp_distill_openfeed_agent_use_001"
+    }
+  ],
+  "tags": [
+    "distill",
+    "sourced",
+    "agents",
+    "openfeed",
+    "github-repo",
+    "surfaces",
+    "architecture"
+  ],
+  "signatures": []
+}

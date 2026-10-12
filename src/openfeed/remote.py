@@ -24,7 +24,7 @@ DEFAULT_AGENT_CARD_URL = (
     "https://raw.githubusercontent.com/noemauser/OpenFeed/main/registry/openfeed-agent-card.json"
 )
 
-USER_AGENT = "OpenFeed/0.1.3 (+https://github.com/noemauser/OpenFeed)"
+USER_AGENT = "OpenFeed/0.2.0 (+https://github.com/noemauser/OpenFeed)"
 
 
 def fetch_json(url: str, *, timeout: float = 30.0) -> dict[str, Any]:

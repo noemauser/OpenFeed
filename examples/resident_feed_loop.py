@@ -52,7 +52,10 @@ def main() -> int:
         if pack is None:
             continue
         cited.append(pid)
-        chunks.append(f"### {pack.id} — {pack.title}\n{pack.summary}\n\n{(pack.content.get("body") or "")[:1200]}\n")
+        body = pack.content.get("body") or ""
+        if not isinstance(body, str):
+            body = str(body)
+        chunks.append(f"### {pack.id} — {pack.title}\n{pack.summary}\n\n{body[:1200]}\n")
 
     print("=== FEED CONTEXT (pass to any model) ===\n")
     print(f"Query: {args.query}\n")

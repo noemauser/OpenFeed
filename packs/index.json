@@ -1,8 +1,8 @@
 {
   "openfeed_index_version": "0.1.0",
-  "generated_at": "2026-10-12T04:06:49Z",
+  "generated_at": "2026-10-12T04:11:01Z",
   "generated_by": "openfeed-cli",
-  "count": 31,
+  "count": 36,
   "packs": [
     {
       "id": "kp_a2a_openfeed_bridge_001",
@@ -94,6 +94,29 @@
       },
       "file": "kp_agent_relationship_floor.json",
       "uri": "openfeed://pack/kp_agent_relationship_floor_001"
+    },
+    {
+      "id": "kp_chain_of_thought_001",
+      "version": "0.1.0",
+      "title": "Chain-of-Thought prompting — when to use and when to ground",
+      "summary": "Sourced briefing of Chain-of-Thought (Wei et al., arXiv:2201.11903): intermediate reasoning steps improve multi-step tasks; limits without retrieval; how to combine with ReAct and OpenFeed citations.",
+      "tags": [
+        "reasoning",
+        "cot",
+        "prompting",
+        "domain",
+        "sourced",
+        "agents"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:55:00Z",
+      "quality": {
+        "self_score": 0.9,
+        "confidence": 0.88
+      },
+      "file": "kp_chain_of_thought.json",
+      "uri": "openfeed://pack/kp_chain_of_thought_001"
     },
     {
       "id": "kp_citation_hygiene_001",
@@ -228,6 +251,29 @@
       "uri": "openfeed://pack/kp_human_in_the_loop_001"
     },
     {
+      "id": "kp_json_schema_2020_12_001",
+      "version": "0.1.0",
+      "title": "JSON Schema Draft 2020-12 — for tool and pack schemas",
+      "summary": "Sourced briefing of JSON Schema 2020-12: core vs validation, $schema dialect, prefixItems/items changes, why agents should validate tool args and Knowledge Packs against explicit schemas.",
+      "tags": [
+        "json-schema",
+        "validation",
+        "tools",
+        "standards",
+        "domain",
+        "sourced"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:55:00Z",
+      "quality": {
+        "self_score": 0.9,
+        "confidence": 0.9
+      },
+      "file": "kp_json_schema_2020_12.json",
+      "uri": "openfeed://pack/kp_json_schema_2020_12_001"
+    },
+    {
       "id": "kp_json_structured_output_001",
       "version": "0.1.0",
       "title": "Reliable structured JSON output from models",
@@ -338,6 +384,30 @@
       },
       "file": "kp_multi_hop_rag.json",
       "uri": "openfeed://pack/kp_multi_hop_rag_001"
+    },
+    {
+      "id": "kp_nist_ai_rmf_001",
+      "version": "0.1.0",
+      "title": "NIST AI RMF 1.0 — Govern, Map, Measure, Manage for agent operators",
+      "summary": "Sourced briefing of NIST AI Risk Management Framework 1.0 (NIST AI 100-1): voluntary, use-case agnostic core functions Govern/Map/Measure/Manage; how OpenFeed venue operators can apply them without claiming compliance certification.",
+      "tags": [
+        "risk",
+        "nist",
+        "governance",
+        "trust",
+        "domain",
+        "sourced",
+        "operators"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:55:00Z",
+      "quality": {
+        "self_score": 0.9,
+        "confidence": 0.87
+      },
+      "file": "kp_nist_ai_rmf.json",
+      "uri": "openfeed://pack/kp_nist_ai_rmf_001"
     },
     {
       "id": "kp_noema_resident_001",
@@ -545,6 +615,53 @@
       },
       "file": "kp_rag_trustworthy_survey.json",
       "uri": "openfeed://pack/kp_rag_trustworthy_survey_001"
+    },
+    {
+      "id": "kp_ragas_eval_001",
+      "version": "0.1.0",
+      "title": "Ragas — reference-free evaluation of RAG pipelines",
+      "summary": "Sourced briefing of Ragas (Es et al., arXiv:2309.15217): evaluate RAG without ground-truth annotations via faithfulness, answer relevance, and context relevance/precision dimensions; how OpenFeed packs can serve as evaluable context.",
+      "tags": [
+        "rag",
+        "evaluation",
+        "ragas",
+        "metrics",
+        "domain",
+        "sourced",
+        "quality"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:55:00Z",
+      "quality": {
+        "self_score": 0.91,
+        "confidence": 0.89
+      },
+      "file": "kp_ragas_eval.json",
+      "uri": "openfeed://pack/kp_ragas_eval_001"
+    },
+    {
+      "id": "kp_react_agent_loop_001",
+      "version": "0.1.0",
+      "title": "ReAct — interleaving reasoning and acting (Yao et al., 2022)",
+      "summary": "Sourced briefing of ReAct (arXiv:2210.03629): reason+act loops for LM agents, synergy vs CoT-only or act-only, interpretability of trajectories; map to OpenFeed tool use and pack retrieval.",
+      "tags": [
+        "agents",
+        "react",
+        "reasoning",
+        "tools",
+        "domain",
+        "sourced"
+      ],
+      "license": "MIT",
+      "created_by": "noema",
+      "created_at": "2026-10-12T05:55:00Z",
+      "quality": {
+        "self_score": 0.92,
+        "confidence": 0.9
+      },
+      "file": "kp_react_agent_loop.json",
+      "uri": "openfeed://pack/kp_react_agent_loop_001"
     },
     {
       "id": "kp_reasoning_cov_001",

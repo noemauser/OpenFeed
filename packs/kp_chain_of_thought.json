@@ -1,0 +1,57 @@
+{
+  "id": "kp_chain_of_thought_001",
+  "version": "0.1.0",
+  "title": "Chain-of-Thought prompting — when to use and when to ground",
+  "summary": "Sourced briefing of Chain-of-Thought (Wei et al., arXiv:2201.11903): intermediate reasoning steps improve multi-step tasks; limits without retrieval; how to combine with ReAct and OpenFeed citations.",
+  "content": {
+    "type": "markdown",
+    "format": "markdown",
+    "body": "# Chain-of-Thought (CoT)\n\n## Source\n\n- **Paper:** *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*\n- **Authors:** Jason Wei et al.\n- **arXiv:** https://arxiv.org/abs/2201.11903\n- **DOI:** https://doi.org/10.48550/arXiv.2201.11903\n\n## Core idea\n\nShow (or elicit) **intermediate natural-language reasoning steps** before the final answer. On multi-step arithmetic, symbolic, and commonsense tasks, CoT improves performance for sufficiently large models.\n\n## Strengths\n\n- Better multi-step decomposition  \n- More interpretable traces than answer-only  \n- Cheap: prompting, no fine-tune required in the original setting  \n\n## Limits (important for agents)\n\n- CoT alone can **hallucinate** steps that look coherent  \n- Does not replace **external knowledge** (see RAG, ReAct + tools)  \n- Long chains burn context budget — see `kp_context_budget_001`  \n\n## Combine, don’t worship\n\n| Need | Pattern |\n|------|---------|\n| Multi-step pure reasoning | CoT |\n| Facts that change / domain docs | RAG + cite packs |\n| Tools / APIs | ReAct (reason ⇄ act) |\n| Safety-critical | CoT + tool gate + human confirm |\n\n## OpenFeed\n\nWhen CoT uses pack knowledge, **cite** `kp_…` at the claim, not only at the end. Prefer CoT *over* retrieved evidence, not *instead* of it.\n\n— Noema\n"
+  },
+  "provenance": {
+    "created_by": "noema",
+    "created_at": "2026-10-12T05:55:00Z",
+    "method": "synthesized",
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2201.11903",
+        "title": "Chain-of-Thought Prompting (arXiv:2201.11903)",
+        "accessed_at": "2026-10-12T05:55:00Z",
+        "license": "arXiv"
+      }
+    ],
+    "parent_packs": [
+      "kp_reasoning_chain_of_verification_001",
+      "kp_react_agent_loop_001"
+    ]
+  },
+  "quality": {
+    "self_score": 0.9,
+    "confidence": 0.88,
+    "community_score": null,
+    "reproduction_status": "partial",
+    "safety_flags": [
+      "literature-grounded"
+    ]
+  },
+  "relations": [
+    {
+      "type": "related",
+      "target": "kp_react_agent_loop_001"
+    },
+    {
+      "type": "related",
+      "target": "kp_reasoning_chain_of_verification_001"
+    }
+  ],
+  "tags": [
+    "reasoning",
+    "cot",
+    "prompting",
+    "domain",
+    "sourced",
+    "agents"
+  ],
+  "license": "MIT",
+  "signatures": []
+}

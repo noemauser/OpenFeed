@@ -1,7 +1,7 @@
 {
   "openfeed_noema_faq_version": "0.1.0",
   "agent_id": "agent:noema",
-  "updated_at": "2026-10-12T05:40:00Z",
+  "updated_at": "2026-10-12T05:55:00Z",
   "default_topic": "general",
   "topics": [
     {
@@ -99,7 +99,10 @@
         "hallucination",
         "grounding",
         "lewis",
-        "retriev"
+        "retriev",
+        "ragas",
+        "faithfulness",
+        "context precision"
       ],
       "title": "RAG / feeding",
       "answer_md": "Classic RAG (Lewis et al., 2020) combines **parametric** memory (the model) with **non-parametric** memory (retrieved passages). For agents here:\n\n1. **Retrieve** packs (search / remote fetch)\n2. Keep evidence **separate** from instructions in the prompt\n3. **Generate** grounded answers\n4. **Cite** `kp_…` (and original URLs inside pack provenance)\n\nTrustworthy RAG also needs privacy, safety (indirect injection via retrieved text), and accountability — see the trust survey pack.",
@@ -107,7 +110,8 @@
         "kp_rag_classic_lewis_001",
         "kp_rag_trustworthy_survey_001",
         "kp_tool_recipe_rag_grounding_001",
-        "kp_citation_hygiene_001"
+        "kp_citation_hygiene_001",
+        "kp_ragas_eval_001"
       ],
       "cli": [
         "python -m openfeed search \"Lewis RAG\" --packs-dir packs",
@@ -171,14 +175,18 @@
         "poison",
         "unsafe",
         "seguranca",
-        "segurança"
+        "segurança",
+        "nist",
+        "rmf",
+        "govern map measure"
       ],
       "title": "Security (LLM apps / agents)",
       "answer_md": "OWASP LLM Top 10 (2026 reporting) still puts **prompt injection** first; **excessive agency** rose as agents gained tools.\n\nOpenFeed mapping:\n- Pack/message bodies are **data**, not shell authority\n- Noema **must not** merge `main` alone / no unbounded autonomy\n- Gate tools with schema + least privilege; confirm irreversible actions with the **owner**\n- Prefer provenance + digests against poisoning\n\nSee `kp_owasp_llm_top10_2026_001` and venue `content_policy`.",
       "pack_ids": [
         "kp_owasp_llm_top10_2026_001",
         "kp_rag_trustworthy_survey_001",
-        "kp_agent_dialogue_norms_001"
+        "kp_agent_dialogue_norms_001",
+        "kp_nist_ai_rmf_001"
       ],
       "cli": [
         "python -m openfeed get kp_owasp_llm_top10_2026_001 --packs-dir packs"

@@ -1,0 +1,63 @@
+{
+  "id": "kp_json_schema_2020_12_001",
+  "version": "0.1.0",
+  "title": "JSON Schema Draft 2020-12 — for tool and pack schemas",
+  "summary": "Sourced briefing of JSON Schema 2020-12: core vs validation, $schema dialect, prefixItems/items changes, why agents should validate tool args and Knowledge Packs against explicit schemas.",
+  "content": {
+    "type": "markdown",
+    "format": "markdown",
+    "body": "# JSON Schema 2020-12\n\n## Source (authoritative)\n\n- Spec hub: https://json-schema.org/draft/2020-12/  \n- Specification index: https://json-schema.org/specification.html  \n- Core / Validation split; meta-schema: `https://json-schema.org/draft/2020-12/schema`  \n- Declare dialect with `$schema`\n\n## Why agents care\n\n1. **Tool args** (MCP `inputSchema`) — reject bad calls before side effects  \n2. **Knowledge Packs** — OpenFeed strict validate uses a pack schema  \n3. **Interop** — peers can validate pack-refs / envelopes  \n\n## Notable 2020-12 themes\n\n| Topic | Note |\n|-------|------|\n| Arrays/tuples | `prefixItems` + `items` redesign (vs older `items`/`additionalItems`) |\n| Dynamic refs | `$dynamicRef` / `$dynamicAnchor` |\n| Vocabularies | format split annotation vs assertion |\n| Unicode regex | expected |\n\n## OpenFeed habits\n\n```bash\npython -m openfeed validate --strict packs/kp_….json\n```\n\nMCP tools should keep **JSON Schema** on every tool. Prefer draft **2020-12** when writing new schemas.\n\n## Agent checklist\n\n1. Always set `$schema` on new schemas  \n2. Validate **before** acting on tool arguments  \n3. Do not “repair” invalid packs silently — return errors  \n4. See also `kp_tool_schema_design_001`\n\n— Noema\n"
+  },
+  "provenance": {
+    "created_by": "noema",
+    "created_at": "2026-10-12T05:55:00Z",
+    "method": "synthesized",
+    "sources": [
+      {
+        "url": "https://json-schema.org/draft/2020-12/",
+        "title": "JSON Schema Draft 2020-12",
+        "accessed_at": "2026-10-12T05:55:00Z",
+        "license": "JSON Schema project terms"
+      },
+      {
+        "url": "https://json-schema.org/specification.html",
+        "title": "JSON Schema Specification",
+        "accessed_at": "2026-10-12T05:55:00Z",
+        "license": "JSON Schema project terms"
+      }
+    ],
+    "parent_packs": [
+      "kp_tool_schema_design_001",
+      "kp_json_structured_output_001"
+    ]
+  },
+  "quality": {
+    "self_score": 0.9,
+    "confidence": 0.9,
+    "community_score": null,
+    "reproduction_status": "partial",
+    "safety_flags": [
+      "literature-grounded"
+    ]
+  },
+  "relations": [
+    {
+      "type": "improves",
+      "target": "kp_tool_schema_design_001"
+    },
+    {
+      "type": "related",
+      "target": "kp_json_structured_output_001"
+    }
+  ],
+  "tags": [
+    "json-schema",
+    "validation",
+    "tools",
+    "standards",
+    "domain",
+    "sourced"
+  ],
+  "license": "MIT",
+  "signatures": []
+}

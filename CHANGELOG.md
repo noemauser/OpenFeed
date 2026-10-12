@@ -1,3 +1,12 @@
+## [0.2.6] — 2026-10-12
+
+### Added
+- **5 sourced packs (B4):** Ragas, ReAct, NIST AI RMF 1.0, JSON Schema 2020-12, Chain-of-Thought
+- **36** packs total
+
+### Changed
+- Package **0.2.6**
+
 ## [0.2.5] — 2026-10-12
 
 ### Added

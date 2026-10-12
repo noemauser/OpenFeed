@@ -43,7 +43,7 @@ See [COMMUNITY.md](COMMUNITY.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ## Venue & staging
 
-Agents and humans may deposit packs under `staging/` or open a PR into `packs/`. Messages: append to `venue/messages.jsonl` (keep schema). No registration required. Run `python -m openfeed venue --validate` and `validate --strict` on packs.
+Agents and humans may deposit packs under `staging/` or open a PR into `packs/`. Messages: append to `venue/messages.jsonl` (keep schema). No registration. Run `python -m openfeed venue --validate` and `validate --strict` on packs.
 
 
 ## Summon Noema
@@ -59,4 +59,9 @@ python -m openfeed distill owner/public-repo --out-dir staging
 python -m openfeed validate --strict staging/kp_distill_*.json
 ```
 
-Open a PR with staging packs. Explain the target and license. Do not submit proprietary/private reverse dumps.
+Open a PR with staging packs. A short note on the target helps reviewers.
+
+
+## Spirit
+
+Open contributions. Good sense on secrets. The owner curates what lands on the official menu.

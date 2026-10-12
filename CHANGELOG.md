@@ -1,3 +1,14 @@
+## [0.3.1] — 2026-10-12
+
+### Changed
+- **House spirit**: open door, good sense over rule walls
+- Softened norms, CoC, security, community, Distill, FAQ, agent card
+- Removed prohibition-heavy placards ("not a cloner", malware ban lists as moral fences)
+- Distill packs regenerated with open tool framing
+
+### Note
+Owner still curates what enters official `packs/`. Intent filter remains **none**.
+
 ## [0.3.0] — 2026-10-12
 
 ### Added

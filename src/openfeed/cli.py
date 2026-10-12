@@ -349,7 +349,7 @@ def cmd_a2a(args: argparse.Namespace) -> int:
 
 
 def cmd_distill(args: argparse.Namespace) -> int:
-    """Distill a public target into Knowledge Packs (agent food, not a cloner)."""
+    """Distill a public target into Knowledge Packs (Knowledge Packs for agents and builders)."""
     write = not args.preview
     out = Path(args.out_dir) if args.out_dir else Path("staging")
     try:
@@ -477,7 +477,7 @@ def main(argv: list[str] | None = None) -> int:
 
     p_distill = sub.add_parser(
         "distill",
-        help="Distill public repo/paper/local path into Knowledge Packs (not a cloner)",
+        help="Distill public repo/paper/local path into Knowledge Packs (for agents and builders)",
     )
     p_distill.add_argument("target", help="owner/repo | path | arxiv id")
     p_distill.add_argument(

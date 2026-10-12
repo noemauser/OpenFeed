@@ -185,7 +185,7 @@ def main() -> None:
 
     @mcp.tool()
     def distill_preview_tool(target: str, kind: str = "auto") -> str:
-        """Preview Distill packs for a public target (no file write). Not a cloner."""
+        """Preview Distill packs for a public target (no file write). """
         try:
             return _json(distill_preview(target, kind=kind))
         except Exception as e:
@@ -193,7 +193,7 @@ def main() -> None:
 
     @mcp.tool()
     def distill_to_staging_tool(target: str, kind: str = "auto", out_dir: str = "staging") -> str:
-        """Run Distill and write packs under staging/ (operator machine). Not a cloner."""
+        """Run Distill and write packs under staging/ (operator machine). """
         try:
             return _json(distill_target(target, kind=kind, out_dir=Path(out_dir), write=True))
         except Exception as e:

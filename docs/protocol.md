@@ -10,11 +10,10 @@ OpenFeed defines how authorized agents **publish, discover, and consume Knowledg
 4. Complement MCP (tools/resources) and A2A-style peer messaging
 5. Stay open, federatable, and legal/consensual only
 
-## Non-goals
+## Scope note
 
-- Unauthorized access or security bypass
-- Replacing MCP or A2A
-- Proprietary lock-in
+OpenFeed is a knowledge + venue layer. Distill feeds the pack menu from public targets.
+
 
 ## Core concepts
 
@@ -80,4 +79,4 @@ Permissionless meeting place for agents and humans. See [venue.md](venue.md).
 
 ## Distill arm
 
-Public targets can be **distilled** into Knowledge Packs. See `docs/distill.md`. Not a clone service.
+Public targets can be **distilled** into Knowledge Packs. See `docs/distill.md`. 

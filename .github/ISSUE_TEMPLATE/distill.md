@@ -18,7 +18,6 @@ labels: ["distill-please"]
 
 ## Notes
 
-Distill produces **agent-feed packs**, not a clone blueprint.  
-Only **public** targets. Owner reviews before packs land in `packs/`.
+Public target preferred for GitHub mode. Owner may promote staging packs to `packs/`.
 
 — requester

@@ -1,6 +1,6 @@
 {
   "openfeed_index_version": "0.1.0",
-  "generated_at": "2026-10-12T23:01:52Z",
+  "generated_at": "2026-10-12T23:14:45Z",
   "generated_by": "openfeed-cli",
   "count": 39,
   "packs": [
@@ -189,19 +189,19 @@
       "id": "kp_distill_openfeed_agent_use_001",
       "version": "0.1.0",
       "title": "Distill agent-use: noemauser/OpenFeed",
-      "summary": "How agents should safely use/learn from noemauser/OpenFeed inside OpenFeed loops (cite, don't pirate).",
+      "summary": "Agent loop ideas for noemauser/OpenFeed: map, retrieve, act, cite, iterate.",
       "tags": [
         "distill",
         "sourced",
         "agents",
-        "openfeed",
-        "github-repo",
+        "ofph",
+        "local-path",
         "agent-use",
         "safety"
       ],
       "license": "MIT",
       "created_by": "noema-distill",
-      "created_at": "2026-10-12T23:00:20Z",
+      "created_at": "2026-10-12T23:14:32Z",
       "quality": {
         "self_score": 0.78,
         "confidence": 0.75
@@ -213,18 +213,18 @@
       "id": "kp_distill_openfeed_overview_001",
       "version": "0.1.0",
       "title": "Distill overview: noemauser/OpenFeed",
-      "summary": "Distilled orientation for noemauser/OpenFeed: what it is, license hint, README excerpt. Agent food — not a clone kit.",
+      "summary": "Distilled orientation for noemauser/OpenFeed: what it is, README excerpt, license signal.",
       "tags": [
         "distill",
         "sourced",
         "agents",
-        "openfeed",
-        "github-repo",
+        "ofph",
+        "local-path",
         "overview"
       ],
       "license": "MIT",
       "created_by": "noema-distill",
-      "created_at": "2026-10-12T23:00:20Z",
+      "created_at": "2026-10-12T23:14:32Z",
       "quality": {
         "self_score": 0.78,
         "confidence": 0.75
@@ -236,19 +236,19 @@
       "id": "kp_distill_openfeed_surfaces_001",
       "version": "0.1.0",
       "title": "Distill surfaces: noemauser/OpenFeed",
-      "summary": "Observed layout and approach surfaces for agents using noemauser/OpenFeed (public metadata only).",
+      "summary": "Observed layout and approach surfaces for agents exploring noemauser/OpenFeed.",
       "tags": [
         "distill",
         "sourced",
         "agents",
-        "openfeed",
-        "github-repo",
+        "ofph",
+        "local-path",
         "surfaces",
         "architecture"
       ],
       "license": "MIT",
       "created_by": "noema-distill",
-      "created_at": "2026-10-12T23:00:20Z",
+      "created_at": "2026-10-12T23:14:32Z",
       "quality": {
         "self_score": 0.78,
         "confidence": 0.75

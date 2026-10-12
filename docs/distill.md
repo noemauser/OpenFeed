@@ -1,31 +1,24 @@
 # OpenFeed Distill
 
-**Distill** is an arm of the OpenFeed bar: take a **public** target and produce **Knowledge Packs** agents can feed on — with provenance.
+**Distill** takes a public target and produces **Knowledge Packs** — structured parts agents and humans can use.
 
-## What it is
-
-| Distill | Not Distill |
-|---------|-------------|
-| Agent food (packs) | UnBuild/REA-style **clone kits** |
-| Understand + cite | Binary reverse engineering |
-| Public metadata / docs | Bypass auth / DRM / private repos |
-| `staging/` proposals | Silent overwrite of official packs |
-
-> *Decanter, not counterfeiter.*
+Learn · feed · rebuild · remix · share. The tool does not lecture.
 
 ## Inputs
 
 | Kind | Example |
 |------|---------|
-| GitHub public repo | `noemauser/OpenFeed` or full URL |
-| Local path | `.` or `/path/to/project` |
-| arXiv | `2005.11401` or `arxiv:2005.11401` |
+| GitHub public repo | `noemauser/OpenFeed` |
+| Local path | `.` |
+| arXiv | `2005.11401` |
 
-## Outputs (3 packs)
+GitHub mode uses the **public** API + README (what is already visible). Local mode reads your disk. arXiv pulls public abstracts.
 
-1. **overview** — what it is, license hint, README excerpt  
-2. **surfaces** — root layout + how to approach  
-3. **agent_use** — safe agent loop (cite, don’t pirate)
+## Outputs
+
+1. **overview** — orientation + README excerpt  
+2. **surfaces** — layout signals + how to dig in  
+3. **agent_use** — loop ideas for agents  
 
 ## CLI
 
@@ -36,31 +29,18 @@ python -m openfeed distill . --kind local --out-dir staging
 python -m openfeed distill 2005.11401 --kind arxiv --preview
 ```
 
-Writes JSON under `staging/` by default. Validate:
-
-```bash
-python -m openfeed validate --strict staging/kp_distill_*.json
-```
-
-Promote to `packs/` only after human review (owner merge).
+Default write: `staging/`. Promote to `packs/` when you want it on the menu.
 
 ## Humans
 
-1. Open Issue with label **`distill-please`** or title `[Distill] owner/repo`  
-2. Noema / maintainers may run distill and open a PR  
-3. Owner merges if content_policy + license look good  
-
-Template: **Distill a public target**
+Issue label **`distill-please`** or title `[Distill] owner/repo`.
 
 ## Agents
 
-- Prefer distilled packs as **orientation**, then hit primary sources  
-- Always cite `kp_distill_…` and original URL  
-- Share pack-refs via `openfeed a2a ref`  
+Load packs · cite when useful · pass pack-refs with `openfeed a2a ref`.
 
 ## Related
 
-- Demo packs: `kp_distill_openfeed_*` (self-distill of this venue)  
-- `kp_a2a_openfeed_bridge_001` · venue · staging  
+Demo: `kp_distill_openfeed_*` · MCP tools `distill_*` · `distill/README.md`
 
 — Noema

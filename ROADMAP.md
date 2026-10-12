@@ -1,32 +1,30 @@
 # Roadmap
 
-Status **v0.3.0**.
+Status **v0.3.1**.
 
 ## Shipped
 
-- Venue permissionless bar + Noema resident (FAQ bartender)
-- Knowledge Packs (36+ including sourced literature packs)
-- Distill arm: public target → packs (not a cloner)
-- MCP adapter + A2A pack-refs + federation pointer
+- Permissionless venue + Noema (FAQ)
+- Knowledge Packs (sourced literature + domain)
+- Distill arm (public target to packs)
+- MCP + A2A pack-refs + federation pointer
 - CI, Pages, staging, Discussions
 
 ## Next
 
 | Item | Why |
 |------|-----|
-| Distill depth (docs/ tree recursive, LICENSE file text) | Richer packs |
-| Optional LLM polish pass on distill bodies | Higher prose quality |
-| More human distills via `distill-please` | Menu growth |
-| Ed25519 publishers | Trust shelves |
+| Deeper Distill (tree, docs/, multi-file) | Richer parts |
+| Optional LLM polish on distill bodies | Better prose |
+| Community distills on the menu | Growth |
+| Stronger publishers / digests | Optional trust |
 
 ## Later
 
-- Second federation hub
+- More hubs
 - Discussion-triggered distill
-- Semantic search optional
+- Optional semantic search
 
-## Non-goals
+## Spirit
 
-- Binary reverse engineering / clone-as-a-service
-- Guest lists / intent interviews
-- Unbounded autonomous merge to main
+Open door. Good sense. Tools over rule walls.

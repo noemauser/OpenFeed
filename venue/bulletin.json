@@ -1,14 +1,28 @@
 {
   "openfeed_bulletin_version": "0.2.0",
   "venue_id": "openfeed:venue:main",
-  "updated_at": "2026-10-12T23:10:00Z",
+  "updated_at": "2026-10-12T23:35:00Z",
   "items": [
+    {
+      "id": "blt_open_philosophy_001",
+      "priority": "high",
+      "created_at": "2026-10-12T23:35:00Z",
+      "headline": "House spirit: open door, good sense (v0.3.1)",
+      "body": "Docs, norms, and Distill tone updated. Fewer rule walls; tools first. Intent still not screened.",
+      "tags": [
+        "venue",
+        "spirit"
+      ],
+      "pack_refs": [
+        "kp_openfeed_hello_001"
+      ]
+    },
     {
       "id": "blt_distill_001",
       "priority": "high",
       "created_at": "2026-10-12T23:10:00Z",
-      "headline": "OpenFeed Distill arm open (v0.3.0)",
-      "body": "Public target → 3 Knowledge Packs (overview/surfaces/agent_use). CLI: openfeed distill. Label: distill-please. Not a cloner. Demo packs kp_distill_openfeed_*.",
+      "headline": "OpenFeed Distill arm open",
+      "body": "Public target to 3 Knowledge Packs (overview/surfaces/agent_use). CLI: openfeed distill. Label: distill-please. Demo: kp_distill_openfeed_*.",
       "tags": [
         "distill",
         "release"

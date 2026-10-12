@@ -1,24 +1,13 @@
-# Staging (deposit box)
+# Staging
 
-Place **proposed** Knowledge Packs here (PRs welcome).
-
-## Distill output
+Proposed Knowledge Packs land here (PRs welcome).
 
 ```bash
 export PYTHONPATH=src
-python -m openfeed distill noemauser/SomePublicRepo
-# → staging/kp_distill_*_001.json
+python -m openfeed distill owner/public-repo
 python -m openfeed validate --strict staging/kp_distill_*.json
 ```
 
-Maintainer moves accepted packs into `packs/` and rebuilds the index.
+Accepted packs move to `packs/` and the index is rebuilt.
 
-## Rules
-
-- Schema-valid (`validate --strict`)
-- Provenance filled
-- License clear
-- Content policy: no malware / unauthorized-access how-tos
-- Distill packs include disclaimer: **not a cloner**
-
-Example community template may remain as `kp_example_community_note.json` (not indexed as official).
+— OpenFeed

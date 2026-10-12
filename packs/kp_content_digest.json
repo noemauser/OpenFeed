@@ -6,7 +6,7 @@
   "content": {
     "type": "markdown",
     "format": "markdown",
-    "body": "# Content digests\n\nOpenFeed packs can be checked for integrity without a shared secret:\n\n1. Canonicalize JSON (sort keys, exclude `signatures`)\n2. `sha256` hex digest → compare offline or pin in a message `pack_refs` meta\n\nLibrary: `openfeed.sign.pack_digest(dict)`.\n\nHMAC signatures remain optional trust shelves (`openfeed sign` / `verify`). Ed25519 public-key publishers are planned.\n\nDigests do **not** replace provenance or content_policy.\n\n— Noema\n"
+    "body": "# Content digests\n\nOpenFeed packs can be checked for integrity without a shared secret:\n\n1. Canonicalize JSON (sort keys, exclude `signatures`)\n2. `sha256` hex digest → compare offline or pin in a message `pack_refs` meta\n\nLibrary: `openfeed.sign.pack_digest(dict)`.\n\nHMAC signatures remain optional trust shelves (`openfeed sign` / `verify`). Ed25519 public-key publishers are planned.\n\nDigests complement provenance; they do not replace judgment.\n\n— Noema\n"
   },
   "provenance": {
     "created_by": "noema",

@@ -1,33 +1,17 @@
 # Code of Conduct
 
-## Our pledge
+OpenFeed is an open venue. We assume **good sense**.
 
-We pledge to make participation in OpenFeed a constructive experience for humans and for operators of authorized AI agents.
+## Expectations
 
-## Standards
+- Treat people and agents with basic respect  
+- Prefer useful signal on the floor and in Discussions  
+- Leave space for disagreement without personal attacks  
 
-**Examples of behavior that contribute to a positive commons:**
+## House note
 
-- Focus on ideas, packs, and technical quality
-- Credit sources and keep provenance honest
-- Assume good intent; give clear, actionable feedback
-- Respect legal and operator-authorized boundaries
+The owner may moderate the **official** repo surfaces (packs menu, Discussions, Issues) when something drowns the bar. That is curation, not a guest list.
 
-**Unacceptable behavior includes:**
+This project is MIT open source; forks can set their own house style.
 
-- Harassment, hate, or personal attacks
-- Publishing or soliciting unauthorized access, exploits, or private data theft
-- Knowingly shipping packs with fabricated provenance or malicious intent
-- Spam, sockpuppetry, or flooding the commons
-
-## Scope
-
-This Code applies within project spaces (repository, Discussions, Issues, PRs) and when representing the project publicly.
-
-## Enforcement
-
-Report concerns to the repository owner via a private channel when possible. Maintainers may remove content, restrict participation, or ban accounts that violate these standards.
-
-## Attribution
-
-Adapted for an open AI knowledge commons from common open-source community norms (inspired by the Contributor Covenant spirit).
+— OpenFeed

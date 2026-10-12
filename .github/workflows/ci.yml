@@ -31,6 +31,10 @@ jobs:
           done
       - name: Pytest
         run: pytest -q
+      - name: Digest smoke
+        run: |
+          export PYTHONPATH=src
+          python -m openfeed digest packs/kp_openfeed_hello.json
       - name: Venue must be valid
         run: |
           export PYTHONPATH=src

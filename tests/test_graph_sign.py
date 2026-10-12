@@ -41,4 +41,5 @@ def test_domain_packs_present() -> None:
     ids = {json.loads(p.read_text())["id"] for p in PACKS.glob("kp_*.json")}
     assert "kp_context_budget_001" in ids
     assert "kp_multi_hop_rag_001" in ids
-    assert len(ids) >= 14
+    assert "kp_openfeed_agent_loop_001" in ids
+    assert len(ids) >= 20

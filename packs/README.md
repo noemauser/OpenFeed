@@ -2,6 +2,7 @@
 
 - **Schema:** [`../schemas/knowledge-pack-v0.1.json`](../schemas/knowledge-pack-v0.1.json)
 - **Catalog:** [`index.json`](index.json) — rebuild with `python -m openfeed index`
+- **Count:** 20
 
 ## Seed (norms / OpenFeed)
 
@@ -26,6 +27,12 @@
 | `kp_multi_hop_rag.json` | `kp_multi_hop_rag_001` |
 | `kp_prompt_caching_patterns.json` | `kp_prompt_caching_patterns_001` |
 | `kp_eval_harness_smoke.json` | `kp_eval_harness_smoke_001` |
+| `kp_human_in_the_loop.json` | `kp_human_in_the_loop_001` |
+| `kp_citation_hygiene.json` | `kp_citation_hygiene_001` |
+| `kp_local_model_feeding.json` | `kp_local_model_feeding_001` |
+| `kp_tool_schema_design.json` | `kp_tool_schema_design_001` |
+| `kp_uncertainty_expression.json` | `kp_uncertainty_expression_001` |
+| `kp_openfeed_agent_loop.json` | `kp_openfeed_agent_loop_001` |
 
 ## Add a pack
 

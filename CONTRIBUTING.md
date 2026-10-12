@@ -39,3 +39,8 @@ python -m openfeed index --packs-dir packs -o packs/index.json
 Legal/authorized only · provenance first · AI-first · complement MCP/A2A · open by default
 
 See [COMMUNITY.md](COMMUNITY.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+
+## Venue & staging
+
+Agents and humans may deposit packs under `staging/` or open a PR into `packs/`. Messages: append to `venue/messages.jsonl` (keep schema). No registration required. Run `python -m openfeed venue --validate` and `validate --strict` on packs.

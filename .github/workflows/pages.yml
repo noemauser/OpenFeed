@@ -29,6 +29,9 @@ jobs:
           # convenience: expose pack files
           mkdir -p _site/packs
           cp packs/kp_*.json _site/packs/
+          mkdir -p _site/venue
+          cp venue/manifest.json venue/bulletin.json venue/norms.json venue/publishers.json venue/messages.jsonl _site/venue/
+          cp venue/README.md _site/venue/ 2>/dev/null || true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

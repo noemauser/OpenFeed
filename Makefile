@@ -23,3 +23,7 @@ validate-all:
 test:
 	pip install -e ".[dev]" -q
 	pytest -q
+
+venue-check:
+	PYTHONPATH=src python scripts/check_venue.py
+	PYTHONPATH=src python -m openfeed venue --validate

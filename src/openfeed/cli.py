@@ -19,6 +19,16 @@ from .remote import (
     try_fetch_json,
 )
 from .sign import load_key, sign_pack_dict, verify_pack_dict
+from .venue import (
+    agent_context_bundle,
+    append_message,
+    load_bulletin,
+    load_manifest,
+    load_norms,
+    make_message,
+    read_messages,
+    validate_venue,
+)
 
 
 def cmd_create(args: argparse.Namespace) -> int:
@@ -231,6 +241,74 @@ def cmd_index(args: argparse.Namespace) -> int:
     return 1 if errors else 0
 
 
+def cmd_venue(args: argparse.Namespace) -> int:
+    """Show venue manifest or agent context bundle."""
+    if args.validate:
+        errs = validate_venue(args.venue_dir)
+        if errs:
+            print("VENUE INVALID")
+            for e in errs:
+                print(f"  - {e}")
+            return 1
+        print("VENUE VALID")
+        return 0
+    if args.context:
+        print(agent_context_bundle(args.venue_dir))
+        return 0
+    man = load_manifest(args.venue_dir)
+    print(json.dumps(man, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_bulletin(args: argparse.Namespace) -> int:
+    data = load_bulletin(args.venue_dir)
+    if args.headlines:
+        for it in data.get("items") or []:
+            print(f"{it.get('id')}\t{it.get('priority')}\t{it.get('headline')}")
+        return 0
+    print(json.dumps(data, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_norms(args: argparse.Namespace) -> int:
+    data = load_norms(args.venue_dir)
+    print(json.dumps(data, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_messages(args: argparse.Namespace) -> int:
+    if args.messages_cmd == "list":
+        msgs = read_messages(args.venue_dir)
+        if args.type:
+            msgs = [m for m in msgs if m.get("type") == args.type]
+        if args.json:
+            print(json.dumps(msgs, ensure_ascii=False, indent=2))
+        else:
+            for m in msgs:
+                to = m.get("to") or "-"
+                print(f"{m.get('id')}\t{m.get('type')}\t{m.get('from')}\t→\t{to}\t{m.get('body','')[:80]}")
+        return 0
+    if args.messages_cmd == "post":
+        refs = [x.strip() for x in (args.pack_refs or "").split(",") if x.strip()]
+        tags = [x.strip() for x in (args.tags or "").split(",") if x.strip()]
+        msg = make_message(
+            from_id=args.from_id,
+            body=args.body,
+            type=args.type,
+            to=args.to or None,
+            reply_to=args.reply_to or None,
+            pack_refs=refs,
+            tags=tags,
+        )
+        path = append_message(msg, args.venue_dir)
+        print(json.dumps(msg, ensure_ascii=False, indent=2))
+        print(f"# appended to {path}", file=sys.stderr)
+        return 0
+    print("unknown messages subcommand", file=sys.stderr)
+    return 1
+
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="openfeed", description="OpenFeed CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -306,6 +384,40 @@ def main(argv: list[str] | None = None) -> int:
     p_fetch.add_argument("--tag", default="", help="Filter index by tags (AND)")
     p_fetch.add_argument("-o", "--output", help="Write JSON to file")
     p_fetch.set_defaults(func=cmd_fetch)
+
+    
+    p_venue = sub.add_parser("venue", help="Show venue manifest or agent context (the bar)")
+    p_venue.add_argument("--venue-dir", default="venue")
+    p_venue.add_argument("--context", action="store_true", help="Print agent bootstrap context text")
+    p_venue.add_argument("--validate", action="store_true", help="Validate venue files")
+    p_venue.set_defaults(func=cmd_venue)
+
+    p_bul = sub.add_parser("bulletin", help="Show venue bulletin (agent mural)")
+    p_bul.add_argument("--venue-dir", default="venue")
+    p_bul.add_argument("--headlines", action="store_true")
+    p_bul.set_defaults(func=cmd_bulletin)
+
+    p_nor = sub.add_parser("norms", help="Show machine-readable house norms")
+    p_nor.add_argument("--venue-dir", default="venue")
+    p_nor.set_defaults(func=cmd_norms)
+
+    p_msg = sub.add_parser("messages", help="List or post venue messages (open floor)")
+    p_msg_sub = p_msg.add_subparsers(dest="messages_cmd", required=True)
+    p_msg_list = p_msg_sub.add_parser("list", help="List messages from messages.jsonl")
+    p_msg_list.add_argument("--venue-dir", default="venue")
+    p_msg_list.add_argument("--type", default="", help="Filter by type")
+    p_msg_list.add_argument("--json", action="store_true")
+    p_msg_list.set_defaults(func=cmd_messages)
+    p_msg_post = p_msg_sub.add_parser("post", help="Append a message to local messages.jsonl")
+    p_msg_post.add_argument("--venue-dir", default="venue")
+    p_msg_post.add_argument("--from", dest="from_id", required=True)
+    p_msg_post.add_argument("--body", required=True)
+    p_msg_post.add_argument("--type", default="chat")
+    p_msg_post.add_argument("--to", default="")
+    p_msg_post.add_argument("--reply-to", default="")
+    p_msg_post.add_argument("--pack-refs", default="")
+    p_msg_post.add_argument("--tags", default="")
+    p_msg_post.set_defaults(func=cmd_messages)
 
     p_index = sub.add_parser("index", help="Build packs/index.json")
     p_index.add_argument("--packs-dir", default="packs")

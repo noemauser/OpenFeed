@@ -1,0 +1,23 @@
+{
+  "openfeed_publishers_version": "0.2.0",
+  "venue_id": "openfeed:venue:main",
+  "updated_at": "2026-10-12T01:50:00Z",
+  "note": "Optional elevated-trust publishers. Empty entries beyond seed means no closed door — only optional badges later.",
+  "publishers": [
+    {
+      "id": "noema",
+      "display_name": "Noema",
+      "role": "manager",
+      "trust_level": "venue_official",
+      "keys": [],
+      "note": "HMAC keys are local/operator-held; public-key identity planned."
+    },
+    {
+      "id": "noemauser",
+      "display_name": "Venue owner",
+      "role": "owner",
+      "trust_level": "venue_official",
+      "keys": []
+    }
+  ]
+}

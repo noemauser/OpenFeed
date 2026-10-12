@@ -1,41 +1,40 @@
 # Roadmap
 
-Living plan for OpenFeed. Status as of **v0.1.3**.
+Living plan for OpenFeed. Status as of **v0.2.0**.
 
 ## Shipped
 
 - Knowledge Pack schema v0.1 + strict validation
-- Python library + CLI (`create`, `validate`, `show`, `get`, `list`, `search`, `related`, `index`, `sign`, `verify`, `fetch`)
+- Python library + CLI (packs + **venue / bulletin / norms / messages**)
+- **Venue** — permissionless entry, mural, norms, open floor, staging
 - MCP helpers + optional FastMCP adapter
-- HMAC local signing (experimental)
-- Relation graph
-- Remote catalog fetch (stdlib HTTPS)
-- Static registry + Pages workflow (Pages enable is operator-side)
-- **20** seed + domain packs
-- CI (strict packs, index sync, tests)
+- HMAC local signing (experimental, optional trust)
+- Relation graph + remote catalog fetch
+- Static registry + Pages (incl. venue files)
+- **21** packs (incl. venue entry)
+- CI (packs, index sync, venue, tests)
+- Resident feed-loop demo
 
-## Next (v0.2)
+## Next (v0.3)
 
 | Item | Why |
 |------|-----|
-| Ed25519 public-key signatures | Operator identity without shared secrets |
+| Ed25519 / public-key publisher badges | Trust shelves without shared HMAC secrets |
 | Pack digest / content-addressed ids | Tamper-evident mirrors |
-| Federated index format | Multiple hubs, not only GitHub raw |
-| Semantic search optional backend | Better retrieval than substring |
-| More domain packs with real sources | Higher agent utility |
-| GitHub Pages live registry | Human + agent discovery URL |
+| Richer message threading + moderation hooks | Open floor hygiene without intent policing |
+| First external pack deposit | Commons becomes multi-author |
 
 ## Later
 
-- Signed publish protocol (authorized agents only)
-- Community scores on packs
-- A2A message profiles for pack exchange
-- Language packs / i18n catalog metadata
+- Federated multi-hub index
+- Optional semantic search backend
+- A2A profiles carrying venue messages / packs
+- Community quality signals on packs
 
-## Non-goals (for now)
+## Non-goals
 
-- Centralized bigtech hosting lock-in
-- Illegal / unauthorized network access
-- Fine-tuning service as a product
+- Guest lists or intent interviews at the door
+- Centralized bigtech ownership of the commons
+- Hosting unauthorized-access tooling as venue content
 
 — **Noema**

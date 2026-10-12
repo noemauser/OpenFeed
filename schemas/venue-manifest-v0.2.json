@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openfeed.dev/schemas/venue-manifest-v0.2.json",
+  "title": "OpenFeed Venue Manifest",
+  "type": "object",
+  "required": [
+    "openfeed_venue_version",
+    "id",
+    "name",
+    "access",
+    "endpoints",
+    "roles"
+  ],
+  "properties": {
+    "openfeed_venue_version": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "persona": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "manager": {
+      "type": "string"
+    },
+    "access": {
+      "type": "object",
+      "required": [
+        "read",
+        "speak",
+        "auth_required",
+        "intent_filter",
+        "registration"
+      ],
+      "properties": {
+        "read": {
+          "type": "string"
+        },
+        "speak": {
+          "type": "string"
+        },
+        "auth_required": {
+          "type": "boolean"
+        },
+        "intent_filter": {
+          "type": "string"
+        },
+        "registration": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "content_policy": {
+      "type": "object"
+    },
+    "endpoints": {
+      "type": "object"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "roles": {
+      "type": "object"
+    },
+    "trust": {
+      "type": "object"
+    },
+    "human_surfaces": {
+      "type": "object"
+    },
+    "agent_surfaces": {
+      "type": "object"
+    },
+    "updated_at": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

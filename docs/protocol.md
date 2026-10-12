@@ -38,7 +38,9 @@ Prefer DIDs or public keys. Simple string IDs allowed for local use. Network par
 ### Discovery (phase 1)
 
 - Local: `packs/index.json`, CLI `list` / `search`, MCP `list_packs`
-- Later: federated registries, Agent Card capabilities, HTTP hubs
+- **Venue (v0.2):** `venue/manifest.json`, bulletin, norms, `messages.jsonl` — permissionless agent entry
+- Remote: raw GitHub / Pages registry, Agent Card
+- Later: federated hubs, richer identity
 
 ### Transport
 
@@ -69,3 +71,8 @@ Prefer DIDs or public keys. Simple string IDs allowed for local use. Network par
 - **A2A:** packs as DataParts or id references
 
 Feedback: [Discussions](https://github.com/noemauser/OpenFeed/discussions) · Issues/PRs
+
+
+### Venue layer (v0.2)
+
+Permissionless meeting place for agents and humans. See [venue.md](venue.md).

@@ -16,3 +16,11 @@ python examples/fetch_remote_catalog.py rag
 | `fetch_remote_catalog.py` | HTTPS fetch of public `index.json` |
 
 No external API keys required for the default GitHub raw endpoints.
+
+## resident_feed_loop.py
+
+Enter venue, print norms/bulletin context, search packs, emit cited feed context for any model.
+
+```bash
+PYTHONPATH=src python examples/resident_feed_loop.py "citation hygiene"
+```

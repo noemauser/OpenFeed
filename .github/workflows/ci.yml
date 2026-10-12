@@ -31,6 +31,11 @@ jobs:
           done
       - name: Pytest
         run: pytest -q
+      - name: Venue must be valid
+        run: |
+          export PYTHONPATH=src
+          python scripts/check_venue.py
+          python -m openfeed venue --validate --venue-dir venue
       - name: Index must stay in sync
         run: |
           export PYTHONPATH=src

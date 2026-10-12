@@ -66,6 +66,10 @@ def list_packs(packs_dir: Path | None = None) -> list[dict[str, Any]]:
     return items
 
 
+def _tokenize(q: str) -> list[str]:
+    return [t for t in "".join(c if c.isalnum() or c.isspace() else " " for c in q.lower()).split() if len(t) > 1]
+
+
 def search_packs(
     query: str = "",
     packs_dir: Path | None = None,
@@ -73,11 +77,16 @@ def search_packs(
     tags: Optional[Sequence[str]] = None,
     min_confidence: Optional[float] = None,
 ) -> list[dict[str, Any]]:
-    """Search packs by keyword; optional tag filter and min confidence."""
+    """Search packs by keywords (multi-token score) with optional tag/confidence filters.
+
+    Ranking: title/id hits weight more than body; all query tokens should match
+    somewhere unless the full phrase matches (legacy substring).
+    """
     q = (query or "").strip().lower()
+    tokens = _tokenize(q)
     tag_set = {t.strip().lower() for t in (tags or []) if t and t.strip()}
 
-    hits: list[dict[str, Any]] = []
+    scored: list[tuple[float, dict[str, Any]]] = []
     for path in iter_pack_files(packs_dir):
         try:
             raw = path.read_text(encoding="utf-8")
@@ -94,22 +103,51 @@ def search_packs(
                         continue
                 except (TypeError, ValueError):
                     continue
-            if q:
-                blob = " ".join(
-                    [
-                        str(data.get("id", "")),
-                        str(data.get("title", "")),
-                        str(data.get("summary", "")),
-                        " ".join(pack_tags),
-                        str((data.get("content") or {}).get("body", "")),
-                    ]
-                ).lower()
-                if q not in blob:
+
+            title = str(data.get("title", "")).lower()
+            pid = str(data.get("id", "")).lower()
+            summary = str(data.get("summary", "")).lower()
+            body = str((data.get("content") or {}).get("body", "")).lower()
+            tag_blob = " ".join(pack_tags)
+            blob = f"{pid} {title} {summary} {tag_blob} {body}"
+
+            if not q:
+                scored.append((0.0, _meta_from_data(data, path)))
+                continue
+
+            # full-phrase legacy match
+            phrase_hit = q in blob
+            if tokens:
+                missing = [t for t in tokens if t not in blob]
+                if missing and not phrase_hit:
                     continue
-            hits.append(_meta_from_data(data, path))
+                score = 0.0
+                for t in tokens:
+                    if t in pid:
+                        score += 8
+                    if t in title:
+                        score += 6
+                    if t in summary:
+                        score += 3
+                    if t in tag_blob:
+                        score += 4
+                    if t in body:
+                        score += 1
+                if phrase_hit:
+                    score += 5
+            else:
+                if not phrase_hit:
+                    continue
+                score = 5.0
+
+            meta = _meta_from_data(data, path)
+            meta["score"] = round(score, 2)
+            scored.append((score, meta))
         except Exception:
             continue
-    return hits
+
+    scored.sort(key=lambda x: (-x[0], str(x[1].get("id") or "")))
+    return [m for _, m in scored]
 
 
 def get_pack(pack_id: str, packs_dir: Path | None = None) -> KnowledgePack | None:

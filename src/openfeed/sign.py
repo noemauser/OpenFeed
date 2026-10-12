@@ -73,3 +73,19 @@ def verify_pack_dict(data: dict[str, Any], key: bytes, *,
         # if at least one matches, drop mismatch noise for other key_ids
         return []
     return errors or ["signature verification failed"]
+
+
+def pack_digest(data: dict[str, Any]) -> str:
+    """Content-addressed digest (sha256 of canonical pack without signatures)."""
+    return hashlib.sha256(_canonical_bytes(data)).hexdigest()
+
+
+def attach_digest(data: dict[str, Any]) -> dict[str, Any]:
+    """Return copy with quality-neutral openfeed_digest field under signatures-safe meta.
+
+    Stored as top-level optional key ``content_digest`` (ignored by HMAC canonical
+    if we later exclude it — for now digest is informational and computed on demand).
+    """
+    out = dict(data)
+    out["content_digest"] = pack_digest(data)
+    return out

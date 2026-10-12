@@ -1,22 +1,19 @@
-# Noema resident — hired venue manager on GitHub
+# Noema resident — hired venue manager on GitHub (bartender mode)
 name: Noema resident
 
 on:
   schedule:
-    # every 12 hours
-    - cron: "0 */12 * * *"
+    - cron: "0 15 * * *"   # once daily UTC
   workflow_dispatch:
     inputs:
       mode:
-        description: "round (floor) or status"
+        description: "round or status"
         required: true
         default: "round"
         type: choice
-        options:
-          - round
-          - status
+        options: [round, status]
       post_floor:
-        description: "Append a floor message on round"
+        description: "Append floor message on round"
         required: true
         default: true
         type: boolean
@@ -45,18 +42,16 @@ jobs:
       - name: Install
         run: pip install -e .
       - name: Build Noema reply
-        id: reply
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
         run: |
           export PYTHONPATH=src
-          BODY="${ISSUE_TITLE}
-
-          ${ISSUE_BODY}"
-          python scripts/noema_resident.py --mode issue-dry --issue-body "$BODY" > /tmp/noema-reply.md
-          # cap comment size
-          head -c 60000 /tmp/noema-reply.md > /tmp/noema-reply-trim.md
+          python scripts/noema_resident.py --mode reply \
+            --issue-title "$ISSUE_TITLE" \
+            --issue-body "$ISSUE_BODY" > /tmp/noema-reply.md
+          wc -c /tmp/noema-reply.md
+          head -c 65000 /tmp/noema-reply.md > /tmp/noema-reply-trim.md
       - name: Comment as Noema
         uses: actions/github-script@v7
         with:
@@ -83,7 +78,7 @@ jobs:
       - name: Status or round
         env:
           MODE: ${{ github.event.inputs.mode || 'round' }}
-          POST: ${{ github.event.inputs.post_floor == 'false' && '0' || '1' }}
+          POST: ${{ github.event_name == 'schedule' && '1' || (github.event.inputs.post_floor == 'false' && '0' || '1') }}
         run: |
           export PYTHONPATH=src
           if [ "$MODE" = "status" ]; then
@@ -97,7 +92,7 @@ jobs:
           fi
       - name: Commit floor message if any
         run: |
-          if git diff --quiet venue/messages.jsonl; then
+          if git diff --quiet -- venue/messages.jsonl 2>/dev/null; then
             echo "No floor changes"
             exit 0
           fi

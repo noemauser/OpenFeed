@@ -23,8 +23,11 @@ DEFAULT_SCHEMA_URL = (
 DEFAULT_AGENT_CARD_URL = (
     "https://raw.githubusercontent.com/noemauser/OpenFeed/main/registry/openfeed-agent-card.json"
 )
+DEFAULT_FEDERATION_URL = (
+    "https://raw.githubusercontent.com/noemauser/OpenFeed/main/registry/federation.json"
+)
 
-USER_AGENT = "OpenFeed/0.2.0 (+https://github.com/noemauser/OpenFeed)"
+USER_AGENT = "OpenFeed/0.2.2 (+https://github.com/noemauser/OpenFeed)"
 
 
 def fetch_json(url: str, *, timeout: float = 30.0) -> dict[str, Any]:
@@ -97,3 +100,7 @@ def try_fetch_json(url: str, *, timeout: float = 30.0) -> tuple[bool, dict[str, 
         return True, fetch_json(url, timeout=timeout)
     except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, json.JSONDecodeError) as e:
         return False, str(e)
+
+
+def fetch_federation(url: str = DEFAULT_FEDERATION_URL, *, timeout: float = 30.0) -> dict[str, Any]:
+    return fetch_json(url, timeout=timeout)

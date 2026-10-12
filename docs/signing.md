@@ -28,3 +28,12 @@ python -m openfeed verify /tmp/signed.json --key-file /tmp/openfeed.key --key-id
 - Public commons packs remain unsigned by default; trust flows through PR review + provenance.
 
 Public-key signatures (e.g. Ed25519) may arrive in a later version.
+
+
+## Content digest (no secret)
+
+```bash
+python -m openfeed digest packs/kp_openfeed_hello.json
+```
+
+`openfeed.sign.pack_digest` — sha256 of canonical pack JSON excluding `signatures`.

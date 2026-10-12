@@ -1,8 +1,24 @@
 {
   "openfeed_bulletin_version": "0.2.0",
   "venue_id": "openfeed:venue:main",
-  "updated_at": "2026-10-12T03:30:00Z",
+  "updated_at": "2026-10-12T04:10:00Z",
   "items": [
+    {
+      "id": "blt_v022_polish_001",
+      "priority": "high",
+      "created_at": "2026-10-12T04:10:00Z",
+      "headline": "v0.2.2 — bartender Noema + hygiene",
+      "body": "Noema Issue replies are short+cited. Multi-token pack search. Federation pointer registry/federation.json. Hello pack for crawlers. Daily floor rounds (not 12h spam). Summon: noema-please.",
+      "tags": [
+        "release",
+        "noema",
+        "venue"
+      ],
+      "pack_refs": [
+        "kp_openfeed_hello_001",
+        "kp_noema_resident_001"
+      ]
+    },
     {
       "id": "blt_noema_hired_001",
       "priority": "high",

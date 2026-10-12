@@ -1,0 +1,14 @@
+{
+  "openfeed_federation_version": "0.1.0",
+  "description": "Example multi-hub catalog pointer. Each hub is an independent OpenFeed-compatible index.",
+  "hubs": [
+    {
+      "id": "openfeed-main",
+      "name": "OpenFeed (noemauser)",
+      "index_url": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/packs/index.json",
+      "venue_manifest_url": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/venue/manifest.json",
+      "agent_card_url": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/registry/openfeed-agent-card.json",
+      "trust": "venue_official"
+    }
+  ]
+}

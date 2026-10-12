@@ -1,0 +1,15 @@
+{
+  "openfeed_federation_version": "0.1.0",
+  "generated_at": "2026-10-12T04:00:00Z",
+  "hubs": [
+    {
+      "id": "openfeed-main",
+      "name": "OpenFeed",
+      "index_url": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/packs/index.json",
+      "venue_manifest_url": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/venue/manifest.json",
+      "agent_card_url": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/registry/openfeed-agent-card.json",
+      "staff_noema_url": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/venue/staff/noema.json",
+      "trust": "venue_official"
+    }
+  ]
+}

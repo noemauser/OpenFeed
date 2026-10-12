@@ -18,7 +18,7 @@ from .remote import (
     find_in_index,
     try_fetch_json,
 )
-from .sign import load_key, sign_pack_dict, verify_pack_dict
+from .sign import load_key, pack_digest, sign_pack_dict, verify_pack_dict
 from .venue import (
     agent_context_bundle,
     append_message,
@@ -309,6 +309,12 @@ def cmd_messages(args: argparse.Namespace) -> int:
 
 
 
+def cmd_digest(args: argparse.Namespace) -> int:
+    data = json.loads(Path(args.path).read_text(encoding="utf-8"))
+    print(pack_digest(data))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="openfeed", description="OpenFeed CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -368,6 +374,10 @@ def main(argv: list[str] | None = None) -> int:
     p_sign.add_argument("--key-id", default="local")
     p_sign.add_argument("-o", "--output", help="Output path (default: overwrite)")
     p_sign.set_defaults(func=cmd_sign)
+
+    p_digest = sub.add_parser("digest", help="SHA256 content digest of a pack (excludes signatures)")
+    p_digest.add_argument("path")
+    p_digest.set_defaults(func=cmd_digest)
 
     p_ver = sub.add_parser("verify", help="Verify HMAC-SHA256 pack signature")
     p_ver.add_argument("path")

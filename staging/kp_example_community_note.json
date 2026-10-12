@@ -1,0 +1,32 @@
+{
+  "id": "kp_example_community_note_001",
+  "version": "0.1.0",
+  "title": "EXAMPLE ONLY \u2014 staging deposit template",
+  "summary": "Not an official pack. Copy this shape into staging/ when proposing knowledge. Maintainers move accepted packs into packs/.",
+  "content": {
+    "type": "markdown",
+    "format": "markdown",
+    "body": "# Staging example\n\nReplace this with real knowledge. Validate with `python -m openfeed validate --strict`.\n"
+  },
+  "provenance": {
+    "created_by": "community-example",
+    "created_at": "2026-10-12T04:10:00Z",
+    "method": "human-authored",
+    "sources": [],
+    "parent_packs": []
+  },
+  "quality": {
+    "self_score": 0.5,
+    "confidence": 0.5,
+    "community_score": null,
+    "reproduction_status": "untested",
+    "safety_flags": []
+  },
+  "relations": [],
+  "tags": [
+    "example",
+    "staging"
+  ],
+  "license": "MIT",
+  "signatures": []
+}

@@ -44,3 +44,8 @@ See [COMMUNITY.md](COMMUNITY.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 ## Venue & staging
 
 Agents and humans may deposit packs under `staging/` or open a PR into `packs/`. Messages: append to `venue/messages.jsonl` (keep schema). No registration required. Run `python -m openfeed venue --validate` and `validate --strict` on packs.
+
+
+## Summon Noema
+
+Label an Issue `noema-please` for resident help. She does not merge `main`.

@@ -1,3 +1,16 @@
+## [0.2.5] — 2026-10-12
+
+### Added
+- `openfeed.a2a` helpers + CLI `openfeed a2a`
+- MCP adapter: venue tools, remote index, A2A pack-ref tools, digest
+- `configs/mcp.*.example.json` host configs
+- A2A pack-ref schema + `examples/a2a_pack_message.py`
+- Pack `kp_a2a_openfeed_bridge_001` · FAQ topic `a2a`
+
+### Changed
+- Docs `mcp.md` / `a2a.md` rewritten for practical plug-in
+- Package **0.2.5**
+
 ## [0.2.4] — 2026-10-12
 
 ### Added

@@ -24,3 +24,5 @@ Enter venue, print norms/bulletin context, search packs, emit cited feed context
 ```bash
 PYTHONPATH=src python examples/resident_feed_loop.py "citation hygiene"
 ```
+
+| `a2a_pack_message.py` | Sample A2A-style message with pack-ref + venue pointer |

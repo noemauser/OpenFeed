@@ -4,6 +4,22 @@
   "updated_at": "2026-10-12T05:20:00Z",
   "items": [
     {
+      "id": "blt_b3_mcp_a2a_001",
+      "priority": "high",
+      "created_at": "2026-10-12T05:40:00Z",
+      "headline": "MCP + A2A plug-in layer (v0.2.5)",
+      "body": "mcp_adapter exposes venue + A2A tools. CLI openfeed a2a ref|venue|wrap|parse. configs/ for Claude/Cursor. Pack kp_a2a_openfeed_bridge_001.",
+      "tags": [
+        "mcp",
+        "a2a",
+        "protocol"
+      ],
+      "pack_refs": [
+        "kp_a2a_openfeed_bridge_001",
+        "kp_mcp_protocol_core_001"
+      ]
+    },
+    {
       "id": "blt_noema_faq_001",
       "priority": "high",
       "created_at": "2026-10-12T05:20:00Z",

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "openfeed": {
+      "command": "python",
+      "args": ["-m", "openfeed.mcp_adapter"],
+      "env": {
+        "PYTHONPATH": "/ABSOLUTE/PATH/TO/OpenFeed/src",
+        "OPENFEED_PACKS_DIR": "/ABSOLUTE/PATH/TO/OpenFeed/packs",
+        "OPENFEED_VENUE_DIR": "/ABSOLUTE/PATH/TO/OpenFeed/venue"
+      }
+    }
+  }
+}

@@ -1,9 +1,9 @@
 {
-  "openfeed_agent_card_version": "0.2.4",
+  "openfeed_agent_card_version": "0.2.5",
   "name": "OpenFeed",
   "persona": "Noema",
   "role": "venue_manager_resident",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "status": "alpha",
   "license": "MIT",
   "homepage": "https://github.com/noemauser/OpenFeed",
@@ -46,16 +46,21 @@
     "Cite kp_ ids"
   ],
   "tools": [
-    "list_packs",
-    "search_packs",
-    "get_pack",
-    "validate_pack",
-    "related_packs",
-    "pack_digest",
-    "venue_context",
-    "noema_resident_reply",
+    "a2a_pack_ref",
+    "a2a_venue_pointer",
+    "digest_pack",
+    "fetch_federation",
     "fetch_remote",
-    "fetch_federation"
+    "fetch_remote_index",
+    "get_pack",
+    "list_packs",
+    "noema_resident_reply",
+    "pack_digest",
+    "related_packs",
+    "search_packs",
+    "validate_pack",
+    "venue_context",
+    "venue_manifest"
   ],
   "cli": "python -m openfeed",
   "principles": [

@@ -18,6 +18,7 @@ from .remote import (
     find_in_index,
     try_fetch_json,
 )
+from .a2a import pack_ref, parse_peer_message, venue_pointer, wrap_pack
 from .sign import load_key, pack_digest, sign_pack_dict, verify_pack_dict
 from .venue import (
     agent_context_bundle,
@@ -315,6 +316,37 @@ def cmd_digest(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_a2a(args: argparse.Namespace) -> int:
+    """A2A profile helpers: ref | venue | parse | wrap."""
+    action = args.a2a_action
+    if action == "ref":
+        from .mcp_server import get_pack
+        from .sign import pack_digest
+        from pathlib import Path as P
+        pack = get_pack(args.pack_id, P(args.packs_dir) if args.packs_dir else None)
+        file = None
+        digest = None
+        if pack:
+            digest = pack_digest(pack.to_dict())
+        ref = pack_ref(args.pack_id, file=file, digest=digest)
+        print(json.dumps(ref, ensure_ascii=False, indent=2))
+        return 0
+    if action == "venue":
+        print(json.dumps(venue_pointer(), ensure_ascii=False, indent=2))
+        return 0
+    if action == "parse":
+        raw = Path(args.path).read_text(encoding="utf-8") if args.path else args.json
+        msg = json.loads(raw)
+        print(json.dumps(parse_peer_message(msg), ensure_ascii=False, indent=2))
+        return 0
+    if action == "wrap":
+        data = json.loads(Path(args.path).read_text(encoding="utf-8"))
+        print(json.dumps(wrap_pack(data), ensure_ascii=False, indent=2))
+        return 0
+    print("unknown a2a action", file=sys.stderr)
+    return 2
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="openfeed", description="OpenFeed CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -428,6 +460,14 @@ def main(argv: list[str] | None = None) -> int:
     p_msg_post.add_argument("--pack-refs", default="")
     p_msg_post.add_argument("--tags", default="")
     p_msg_post.set_defaults(func=cmd_messages)
+
+    p_a2a = sub.add_parser("a2a", help="A2A-style pack/venue message helpers")
+    p_a2a.add_argument("a2a_action", choices=["ref", "venue", "parse", "wrap"])
+    p_a2a.add_argument("pack_id", nargs="?", default="", help="For ref: pack id")
+    p_a2a.add_argument("--packs-dir", default=None)
+    p_a2a.add_argument("--path", default="", help="For parse/wrap: file path")
+    p_a2a.add_argument("--json", default="{}", help="For parse: raw JSON string")
+    p_a2a.set_defaults(func=cmd_a2a)
 
     p_index = sub.add_parser("index", help="Build packs/index.json")
     p_index.add_argument("--packs-dir", default="packs")

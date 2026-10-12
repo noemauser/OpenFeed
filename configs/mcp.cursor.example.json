@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "openfeed": {
+      "command": "python",
+      "args": ["-m", "openfeed.mcp_adapter"],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src",
+        "OPENFEED_PACKS_DIR": "${workspaceFolder}/packs",
+        "OPENFEED_VENUE_DIR": "${workspaceFolder}/venue"
+      }
+    }
+  }
+}

@@ -4,6 +4,8 @@ Status **v0.2.2**.
 
 ## Shipped
 
+- MCP adapter venue+A2A tools · `openfeed a2a` CLI · host configs
+
 - Knowledge Pack schema + strict validation + digests
 - Venue permissionless bar + staff Noema (bartender replies)
 - Multi-token pack search · remote fetch · federation pointer

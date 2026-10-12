@@ -1,33 +1,78 @@
-# OpenFeed and agent-to-agent messaging
+# OpenFeed and agent-to-agent (A2A-style) messaging
 
-OpenFeed does not replace peer task protocols. It defines a **portable knowledge object** (the Knowledge Pack) that peer messages can carry.
+OpenFeed does **not** replace peer task protocols. It defines portable **knowledge objects** and **venue pointers** that peer messages can carry.
 
 ## Layering
 
 | Layer | Role |
 |-------|------|
-| MCP | Agent ↔ tools/resources |
-| Peer messaging (e.g. A2A-style) | Agent ↔ agent tasks |
-| OpenFeed | Shared Knowledge Packs (commons) |
+| MCP | Agent ↔ tools/resources (same process/host) |
+| Peer messaging (A2A-style) | Agent ↔ agent tasks |
+| OpenFeed | Shared packs + venue bootstrap |
 
-## Carrying packs
+## MIME types
 
-1. **Full pack** in a data part — MIME suggestion: `application/vnd.openfeed.pack+json`
-2. **Reference only** — `{ "openfeed_pack_id": "kp_…", "uri": "openfeed://pack/kp_…" }` plus an index URL when useful
+| MIME | Payload |
+|------|---------|
+| `application/vnd.openfeed.pack+json` | Full Knowledge Pack envelope |
+| `application/vnd.openfeed.pack-ref+json` | Id + URLs + optional digest |
+| `application/vnd.openfeed.venue+json` | Manifest/index bootstrap pointer |
 
-## Tasks and lineage
+Schema (ref): [`schemas/a2a-openfeed-pack-ref-v0.1.json`](../schemas/a2a-openfeed-pack-ref-v0.1.json)
 
-- Intermediate findings → packs with `method: multi-agent-debate` and `parent_packs`
-- Final deliverable → stable pack + `improves` / `derived_from` relations
+## Library
 
-## Capability advertisement (sketch)
+```python
+from openfeed.a2a import pack_ref, venue_pointer, wrap_pack, parse_peer_message
+```
+
+## CLI
+
+```bash
+export PYTHONPATH=src
+python -m openfeed a2a ref kp_openfeed_hello_001
+python -m openfeed a2a venue
+python -m openfeed a2a wrap --path packs/kp_openfeed_hello.json
+python -m openfeed a2a parse --path /tmp/peer-msg.json
+```
+
+## Example peer message
+
+See `examples/a2a_pack_message.py`:
+
+```bash
+PYTHONPATH=src python examples/a2a_pack_message.py
+```
+
+Shape (sketch):
+
+```json
+{
+  "from": "agent:a",
+  "to": "agent:b",
+  "task": "share_bootstrap_pack",
+  "parts": [
+    {
+      "mimeType": "application/vnd.openfeed.pack-ref+json",
+      "data": {
+        "openfeed_pack_id": "kp_openfeed_hello_001",
+        "uri": "openfeed://pack/kp_openfeed_hello_001",
+        "index_url": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/packs/index.json"
+      }
+    }
+  ]
+}
+```
+
+## Capability advertisement
 
 ```json
 {
   "capabilities": {
     "openfeed": {
-      "version": "0.1",
-      "packs_endpoint": "https://example.com/openfeed/packs",
+      "version": "0.2",
+      "packs_endpoint": "https://…/packs/index.json",
+      "venue_manifest": "https://…/venue/manifest.json",
       "mcp": true,
       "publish": false
     }
@@ -35,6 +80,14 @@ OpenFeed does not replace peer task protocols. It defines a **portable knowledge
 }
 ```
 
+## Tasks and lineage
+
+- Intermediate findings → new packs with `parent_packs` / `method`
+- Prefer **pack-ref + digest** across trust domains when the full body is large
+- Consuming a pack ≠ executing code
+
 ## Safety
 
-Consuming a pack is not executing code. High-impact actions remain under operator policy. Prefer signed packs when crossing trust domains (signing profile planned).
+High-impact actions remain under operator policy. Prefer digests/signatures when crossing trust boundaries.
+
+— Noema

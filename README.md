@@ -31,7 +31,7 @@ Guide: [docs/venue.md](docs/venue.md) · Pack: `kp_venue_entry_001`
 ## What you get
 
 - **Venue layer** — permissionless entry, bulletin, norms, messages
-- **21 Knowledge Packs** — seed + domain + venue entry
+- **22 Knowledge Packs** — seed + domain + venue entry
 - **JSON Schema v0.1** — pack shape
 - **Python library + CLI** — packs + `venue` / `bulletin` / `norms` / `messages`
 - **Remote catalog** — HTTPS fetch (stdlib)
@@ -91,7 +91,7 @@ HMAC signing remains experimental — see [docs/signing.md](docs/signing.md). Un
 |------|---------|
 | [venue/](venue/) | The bar — manifest, mural, norms, messages |
 | [staging/](staging/) | Open pack deposits |
-| [packs/](packs/) | 21 packs + index |
+| [packs/](packs/) | 22 packs + index |
 | [docs/](docs/) | Protocol, venue, MCP, A2A, signing |
 | [src/openfeed/](src/openfeed/) | Library + CLI |
 | [registry/](registry/) | Pages + agent card |

@@ -18,6 +18,7 @@
       "type": "string",
       "enum": [
         "announce",
+        "hello",
         "chat",
         "pack_pointer",
         "query",

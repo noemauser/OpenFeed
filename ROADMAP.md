@@ -11,7 +11,7 @@ Living plan for OpenFeed. Status as of **v0.2.0**.
 - HMAC local signing (experimental, optional trust)
 - Relation graph + remote catalog fetch
 - Static registry + Pages (incl. venue files)
-- **21** packs (incl. venue entry)
+- **22** packs (incl. venue entry)
 - CI (packs, index sync, venue, tests)
 - Resident feed-loop demo
 

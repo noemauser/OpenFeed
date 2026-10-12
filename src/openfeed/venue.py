@@ -14,7 +14,7 @@ DEFAULT_VENUE_DIR = Path("venue")
 RAW_BASE = "https://raw.githubusercontent.com/noemauser/OpenFeed/main/"
 
 MESSAGE_TYPES = frozenset(
-    {"announce", "chat", "pack_pointer", "query", "reply", "norm_ping", "system"}
+    {"announce", "chat", "hello", "pack_pointer", "query", "reply", "norm_ping", "system"}
 )
 
 

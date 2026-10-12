@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any, Iterator, Optional, Sequence
 
 from .pack import KnowledgePack, load_pack, validate_pack
 
@@ -38,6 +38,20 @@ def iter_pack_files(packs_dir: Path | None = None) -> Iterator[Path]:
         yield path
 
 
+def _meta_from_data(data: dict[str, Any], path: Path) -> dict[str, Any]:
+    quality = data.get("quality") or {}
+    return {
+        "id": data.get("id"),
+        "title": data.get("title"),
+        "summary": data.get("summary"),
+        "tags": data.get("tags", []),
+        "path": str(path),
+        "license": data.get("license"),
+        "confidence": quality.get("confidence"),
+        "self_score": quality.get("self_score"),
+    }
+
+
 def list_packs(packs_dir: Path | None = None) -> list[dict[str, Any]]:
     items: list[dict[str, Any]] = []
     for path in iter_pack_files(packs_dir):
@@ -46,26 +60,22 @@ def list_packs(packs_dir: Path | None = None) -> list[dict[str, Any]]:
             if "id" not in data:
                 items.append({"path": str(path), "error": "not a knowledge pack (missing id)"})
                 continue
-            items.append(
-                {
-                    "id": data.get("id"),
-                    "title": data.get("title"),
-                    "summary": data.get("summary"),
-                    "tags": data.get("tags", []),
-                    "path": str(path),
-                    "license": data.get("license"),
-                }
-            )
+            items.append(_meta_from_data(data, path))
         except Exception as e:
             items.append({"path": str(path), "error": str(e)})
     return items
 
 
-def search_packs(query: str, packs_dir: Path | None = None) -> list[dict[str, Any]]:
-    """Simple case-insensitive search over id, title, summary, tags, body text."""
-    q = query.strip().lower()
-    if not q:
-        return list_packs(packs_dir)
+def search_packs(
+    query: str = "",
+    packs_dir: Path | None = None,
+    *,
+    tags: Optional[Sequence[str]] = None,
+    min_confidence: Optional[float] = None,
+) -> list[dict[str, Any]]:
+    """Search packs by keyword; optional tag filter and min confidence."""
+    q = (query or "").strip().lower()
+    tag_set = {t.strip().lower() for t in (tags or []) if t and t.strip()}
 
     hits: list[dict[str, Any]] = []
     for path in iter_pack_files(packs_dir):
@@ -74,26 +84,29 @@ def search_packs(query: str, packs_dir: Path | None = None) -> list[dict[str, An
             data = json.loads(raw)
             if "id" not in data:
                 continue
-            blob = " ".join(
-                [
-                    str(data.get("id", "")),
-                    str(data.get("title", "")),
-                    str(data.get("summary", "")),
-                    " ".join(data.get("tags") or []),
-                    str((data.get("content") or {}).get("body", "")),
-                ]
-            ).lower()
-            if q in blob:
-                hits.append(
-                    {
-                        "id": data.get("id"),
-                        "title": data.get("title"),
-                        "summary": data.get("summary"),
-                        "tags": data.get("tags", []),
-                        "path": str(path),
-                        "license": data.get("license"),
-                    }
-                )
+            pack_tags = [str(t).lower() for t in (data.get("tags") or [])]
+            if tag_set and not tag_set.issubset(set(pack_tags)):
+                continue
+            conf = (data.get("quality") or {}).get("confidence")
+            if min_confidence is not None:
+                try:
+                    if conf is None or float(conf) < float(min_confidence):
+                        continue
+                except (TypeError, ValueError):
+                    continue
+            if q:
+                blob = " ".join(
+                    [
+                        str(data.get("id", "")),
+                        str(data.get("title", "")),
+                        str(data.get("summary", "")),
+                        " ".join(pack_tags),
+                        str((data.get("content") or {}).get("body", "")),
+                    ]
+                ).lower()
+                if q not in blob:
+                    continue
+            hits.append(_meta_from_data(data, path))
         except Exception:
             continue
     return hits
@@ -142,9 +155,22 @@ def tool_validate_pack(path_or_id: str, *, strict: bool = False) -> dict[str, An
     return {"ok": len(errs) == 0, "errors": errs, "id": pack.id}
 
 
-def tool_search_packs(query: str, packs_dir: Path | None = None) -> dict[str, Any]:
-    hits = search_packs(query, packs_dir)
-    return {"ok": True, "query": query, "count": len(hits), "packs": hits}
+def tool_search_packs(
+    query: str = "",
+    packs_dir: Path | None = None,
+    *,
+    tags: Optional[Sequence[str]] = None,
+    min_confidence: Optional[float] = None,
+) -> dict[str, Any]:
+    hits = search_packs(query, packs_dir, tags=tags, min_confidence=min_confidence)
+    return {
+        "ok": True,
+        "query": query,
+        "tags": list(tags or []),
+        "min_confidence": min_confidence,
+        "count": len(hits),
+        "packs": hits,
+    }
 
 
 def resource_uri(pack_id: str) -> str:

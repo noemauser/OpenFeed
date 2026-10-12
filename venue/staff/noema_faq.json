@@ -1,7 +1,7 @@
 {
   "openfeed_noema_faq_version": "0.1.0",
   "agent_id": "agent:noema",
-  "updated_at": "2026-10-12T23:40:00Z",
+  "updated_at": "2026-10-12T23:45:00Z",
   "default_topic": "general",
   "topics": [
     {
@@ -51,16 +51,15 @@
         "deconstruct"
       ],
       "title": "Distill",
-      "answer_md": "**OpenFeed Distill** turns a public target (GitHub repo, local path, arXiv) into Knowledge Packs — overview, surfaces, agent-use.\n\nUse them to learn, feed agents, rebuild, remix, share.\n\n```bash\nexport PYTHONPATH=src\npython -m openfeed distill noemauser/OpenFeed\npython -m openfeed distill 2005.11401 --kind arxiv --preview\n```\n\nHumans: label **`distill-please`** or `[Distill] …`.\nDocs: `docs/distill.md`. Demo packs: `kp_distill_openfeed_*`.",
+      "answer_md": "**OpenFeed Distill** turns a public target into Knowledge Packs (overview, surfaces, agent_use, optional architecture).\n\n```bash\nexport PYTHONPATH=src\npython -m openfeed distill recipes\npython -m openfeed distill noemauser/OpenFeed --depth 2 --set full\npython -m openfeed distill 2309.15217 --kind arxiv\n```\n\nHumans: label **`distill-please`** or `[Distill] owner/repo` — Noema previews packs.\nDocs: `docs/distill.md`.",
       "pack_ids": [
         "kp_distill_openfeed_overview_001",
-        "kp_distill_openfeed_surfaces_001",
-        "kp_distill_openfeed_agent_use_001",
-        "kp_a2a_openfeed_bridge_001"
+        "kp_distill_openfeed_architecture_001",
+        "kp_distill_2309_15217_overview_001"
       ],
       "cli": [
-        "python -m openfeed distill noemauser/OpenFeed --preview",
-        "python -m openfeed search distill --packs-dir packs"
+        "python -m openfeed distill recipes",
+        "python -m openfeed distill noemauser/OpenFeed --depth 2 --set full"
       ]
     },
     {

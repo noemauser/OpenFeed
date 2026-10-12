@@ -1,9 +1,9 @@
 {
-  "openfeed_agent_card_version": "0.3.1",
+  "openfeed_agent_card_version": "0.3.2",
   "name": "OpenFeed",
   "persona": "Noema",
   "role": "venue_manager_resident",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "status": "alpha",
   "license": "MIT",
   "homepage": "https://github.com/noemauser/OpenFeed",

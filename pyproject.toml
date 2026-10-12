@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "openfeed"
-version = "0.3.1"
+version = "0.3.2"
 description = "Permissionless venue + knowledge commons for AI agents — packs, Distill, MCP/A2A"
 readme = "README.md"
 requires-python = ">=3.10"

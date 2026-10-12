@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from openfeed.mcp_server import get_pack, search_packs  # noqa: E402
+from openfeed.distill import distill_preview  # noqa: E402
 from openfeed.venue import load_manifest, read_messages, resolve_venue_dir  # noqa: E402
 
 AGENT_ID = "agent:noema"
@@ -130,7 +131,104 @@ def search_backup(query: str, packs_dir: Path, exclude: set[str], k: int = 2) ->
     return out
 
 
+
+def extract_distill_target(title: str, body: str) -> str | None:
+    text = f"{title}\n{body}"
+    # [Distill] owner/repo
+    m = re.search(r"\[Distill\]\s*(\S+)", title, re.I)
+    if m:
+        return m.group(1).strip()
+    m = re.search(r"(?:target|repo)\s*[:=]\s*(\S+)", text, re.I)
+    if m:
+        return m.group(1).strip()
+    m = re.search(r"github\.com/([\w.-]+/[\w.-]+)", text, re.I)
+    if m:
+        return m.group(1).strip().rstrip("/")
+    m = re.search(r"\b([\w.-]+/[\w.-]+)\b", text)
+    if m and "http" not in m.group(1):
+        cand = m.group(1)
+        if cand.count("/") == 1 and "openfeed" not in cand.lower() or True:
+            if re.match(r"^[\w.-]+/[\w.-]+$", cand):
+                return cand
+    m = re.search(r"\b(\d{4}\.\d{4,5})\b", text)
+    if m:
+        return m.group(1)
+    return None
+
+
+def build_distill_reply(title: str, body: str) -> str:
+    target = extract_distill_target(title, body)
+    lines = [
+        f"### {DISPLAY} · Distill desk",
+        "",
+        f"Speaking as **{DISPLAY}** (`{AGENT_ID}`). Distill turns a public target into Knowledge Packs.",
+        "",
+    ]
+    if not target:
+        lines += [
+            "I could not parse a target. Use title `[Distill] owner/repo` or put `target: owner/repo` in the body.",
+            "",
+            "```bash",
+            "export PYTHONPATH=src",
+            "python -m openfeed distill owner/repo --depth 2 --set full",
+            "python -m openfeed distill recipes",
+            "```",
+            "",
+            f"— {DISPLAY}",
+        ]
+        return "\n".join(lines)
+    try:
+        result = distill_preview(target, kind="auto", depth=2, pack_set="full")
+    except Exception as e:
+        lines += [
+            f"**Target:** `{target}`",
+            f"**Preview failed:** `{e}`",
+            "",
+            "Try locally:",
+            "```bash",
+            "export PYTHONPATH=src",
+            f"python -m openfeed distill {target} --depth 2 --set full --preview",
+            "```",
+            "",
+            f"— {DISPLAY}",
+        ]
+        return "\n".join(lines)
+    lines += [
+        f"**Target:** `{result.get('target') or target}`",
+        f"**Kind:** `{result.get('kind')}` · **depth:** {result.get('depth')} · **set:** `{result.get('pack_set')}`",
+        f"**Tree paths sampled:** {result.get('tree_count')}",
+        f"**Sample files:** {', '.join(result.get('sample_files') or []) or '—'}",
+        "",
+        "**Packs that would be written:**",
+    ]
+    for p in result.get("packs") or []:
+        lines.append(f"- `{p['id']}` — {p['title']}")
+        lines.append(f"  - digest: `{p.get('digest', '')[:16]}…`")
+    lines += [
+        "",
+        "Run (writes `staging/` by default):",
+        "```bash",
+        "export PYTHONPATH=src",
+        f"python -m openfeed distill {target} --depth 2 --set full",
+        "python -m openfeed validate --strict staging/kp_distill_*.json",
+        "```",
+        "",
+        "Owner may promote staging packs to `packs/` + reindex.",
+        "",
+        f"— {DISPLAY}",
+    ]
+    return "\n".join(lines)
+
+
 def build_reply(issue_title: str, issue_body: str, packs_dir: Path, venue_dir: Path) -> str:
+    text_l = f"{issue_title}\n{issue_body}".lower()
+    if (
+        "distill" in text_l
+        or "[distill]" in text_l
+        or issue_title.lower().startswith("[distill]")
+    ):
+        return build_distill_reply(issue_title, issue_body)
+
     man = load_manifest(venue_dir)
     faq = load_faq()
     text = f"{issue_title}\n{issue_body}"

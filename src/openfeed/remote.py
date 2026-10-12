@@ -27,7 +27,7 @@ DEFAULT_FEDERATION_URL = (
     "https://raw.githubusercontent.com/noemauser/OpenFeed/main/registry/federation.json"
 )
 
-USER_AGENT = "OpenFeed/0.3.1 (+https://github.com/noemauser/OpenFeed)"
+USER_AGENT = "OpenFeed/0.3.2 (+https://github.com/noemauser/OpenFeed)"
 
 
 def fetch_json(url: str, *, timeout: float = 30.0) -> dict[str, Any]:

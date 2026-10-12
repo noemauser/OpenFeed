@@ -184,18 +184,24 @@ def main() -> None:
 
 
     @mcp.tool()
-    def distill_preview_tool(target: str, kind: str = "auto") -> str:
-        """Preview Distill packs for a public target (no file write). """
+    def distill_preview_tool(target: str, kind: str = "auto", depth: int = 2, pack_set: str = "full") -> str:
+        """Preview Distill packs for a public target (no file write). depth 0-4; pack_set core|full."""
         try:
-            return _json(distill_preview(target, kind=kind))
+            return _json(distill_preview(target, kind=kind, depth=depth, pack_set=pack_set))
         except Exception as e:
             return _json({"ok": False, "error": str(e)})
 
     @mcp.tool()
-    def distill_to_staging_tool(target: str, kind: str = "auto", out_dir: str = "staging") -> str:
-        """Run Distill and write packs under staging/ (operator machine). """
+    def distill_to_staging_tool(
+        target: str, kind: str = "auto", out_dir: str = "staging", depth: int = 2, pack_set: str = "full"
+    ) -> str:
+        """Run Distill and write packs under staging/ (operator machine)."""
         try:
-            return _json(distill_target(target, kind=kind, out_dir=Path(out_dir), write=True))
+            return _json(
+                distill_target(
+                    target, kind=kind, out_dir=Path(out_dir), write=True, depth=depth, pack_set=pack_set
+                )
+            )
         except Exception as e:
             return _json({"ok": False, "error": str(e)})
 

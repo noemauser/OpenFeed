@@ -1,17 +1,8 @@
-# Distill arm
-
-Public target → Knowledge Packs.
-
-| Path | Role |
-|------|------|
-| [../docs/distill.md](../docs/distill.md) | Guide |
-| [../src/openfeed/distill.py](../src/openfeed/distill.py) | Code |
-| [../staging/](../staging/) | Default output |
-| [../packs/kp_distill_openfeed_*.json](../packs/) | Demo self-distill |
+# Distill
 
 ```bash
 export PYTHONPATH=src
-python -m openfeed distill owner/public-repo
+python -m openfeed distill owner/repo --depth 2 --set full
 ```
 
-— Noema
+See [docs/distill.md](../docs/distill.md).

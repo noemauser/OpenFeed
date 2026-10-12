@@ -1,3 +1,15 @@
+## [0.3.2] — 2026-10-12
+
+### Added
+- Distill **depth** (0–4) + **pack set** core|full (architecture pack)
+- Samples: LICENSE, manifests, docs/*.md, tree
+- CLI `distill recipes` · `--depth` · `--set`
+- Noema **Distill desk** on `distill-please` / `[Distill]`
+- Showcase packs: arXiv 2309.15217 (Ragas) + OpenFeed architecture pack
+
+### Changed
+- Distill tone hygiene · package **0.3.2**
+
 ## [0.3.1] — 2026-10-12
 
 ### Changed

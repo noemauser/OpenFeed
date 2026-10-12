@@ -1,46 +1,42 @@
 # OpenFeed Distill
 
-**Distill** takes a public target and produces **Knowledge Packs** — structured parts agents and humans can use.
-
-Learn · feed · rebuild · remix · share. The tool does not lecture.
-
-## Inputs
-
-| Kind | Example |
-|------|---------|
-| GitHub public repo | `noemauser/OpenFeed` |
-| Local path | `.` |
-| arXiv | `2005.11401` |
-
-GitHub mode uses the **public** API + README (what is already visible). Local mode reads your disk. arXiv pulls public abstracts.
-
-## Outputs
-
-1. **overview** — orientation + README excerpt  
-2. **surfaces** — layout signals + how to dig in  
-3. **agent_use** — loop ideas for agents  
+Public target → **Knowledge Packs** for agents and builders.
 
 ## CLI
 
 ```bash
 export PYTHONPATH=src
-python -m openfeed distill noemauser/OpenFeed
-python -m openfeed distill . --kind local --out-dir staging
-python -m openfeed distill 2005.11401 --kind arxiv --preview
+python -m openfeed distill recipes
+python -m openfeed distill noemauser/OpenFeed --depth 2 --set full
+python -m openfeed distill . --kind local --depth 2
+python -m openfeed distill 2309.15217 --kind arxiv --set full
+python -m openfeed distill owner/repo --preview
 ```
 
-Default write: `staging/`. Promote to `packs/` when you want it on the menu.
+| Flag | Meaning |
+|------|---------|
+| `--depth 0-4` | Tree depth (default 2) |
+| `--set core` | overview + surfaces + agent_use |
+| `--set full` | core + **architecture** (manifests, rebuild notes) |
+| `--preview` | no write |
+| `--out-dir` | default `staging/` |
 
-## Humans
+## Outputs
 
-Issue label **`distill-please`** or title `[Distill] owner/repo`.
+1. overview  
+2. surfaces  
+3. agent_use  
+4. architecture (full set)
 
-## Agents
+Samples: README, LICENSE, pyproject/package.json/Cargo/go.mod, docs/*.md when present.
 
-Load packs · cite when useful · pass pack-refs with `openfeed a2a ref`.
+## Noema
 
-## Related
+Issue label **`distill-please`** or title `[Distill] owner/repo` → Distill desk preview (packs + digests + command).
 
-Demo: `kp_distill_openfeed_*` · MCP tools `distill_*` · `distill/README.md`
+## Demo packs
+
+- `kp_distill_openfeed_*` (self-distill, full)  
+- `kp_distill_2309_15217_*` (Ragas paper arXiv showcase)
 
 — Noema

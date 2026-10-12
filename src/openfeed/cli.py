@@ -18,7 +18,7 @@ from .remote import (
     find_in_index,
     try_fetch_json,
 )
-from .distill import distill_preview, distill_target
+from .distill import distill_preview, distill_target, recipes as distill_recipes
 from .a2a import pack_ref, parse_peer_message, venue_pointer, wrap_pack
 from .sign import load_key, pack_digest, sign_pack_dict, verify_pack_dict
 from .venue import (
@@ -349,16 +349,30 @@ def cmd_a2a(args: argparse.Namespace) -> int:
 
 
 def cmd_distill(args: argparse.Namespace) -> int:
-    """Distill a public target into Knowledge Packs (Knowledge Packs for agents and builders)."""
+    """Distill a public target into Knowledge Packs for agents and builders."""
+    if getattr(args, "distill_recipes", False) or args.target == "recipes":
+        print(json.dumps(distill_recipes(), ensure_ascii=False, indent=2))
+        return 0
+    if not args.target:
+        print(json.dumps({"ok": False, "error": "target required (or --recipes)"}, indent=2))
+        return 2
     write = not args.preview
     out = Path(args.out_dir) if args.out_dir else Path("staging")
     try:
-        result = distill_target(args.target, kind=args.kind, out_dir=out, write=write)
+        result = distill_target(
+            args.target,
+            kind=args.kind,
+            out_dir=out,
+            write=write,
+            depth=getattr(args, "depth", 2),
+            pack_set=getattr(args, "set", "full"),
+        )
     except Exception as e:
         print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False, indent=2))
         return 1
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result.get("ok") else 2
+
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -477,22 +491,27 @@ def main(argv: list[str] | None = None) -> int:
 
     p_distill = sub.add_parser(
         "distill",
-        help="Distill public repo/paper/local path into Knowledge Packs (for agents and builders)",
+        help="Distill public repo/paper/local path into Knowledge Packs",
     )
-    p_distill.add_argument("target", help="owner/repo | path | arxiv id")
+    p_distill.add_argument("target", nargs="?", default="", help="owner/repo | path | arxiv id | recipes")
     p_distill.add_argument(
         "--kind",
         default="auto",
         choices=["auto", "github", "local", "arxiv"],
         help="Target kind (default auto)",
     )
-    p_distill.add_argument("--out-dir", default="staging", help="Write packs here (default staging)")
+    p_distill.add_argument("--depth", type=int, default=2, help="Tree depth 0-4 (default 2)")
     p_distill.add_argument(
-        "--preview",
-        action="store_true",
-        help="Do not write files; print result JSON only",
+        "--set",
+        default="full",
+        choices=["core", "full"],
+        help="core=3 packs, full=4 including architecture",
     )
+    p_distill.add_argument("--out-dir", default="staging", help="Write packs here (default staging)")
+    p_distill.add_argument("--preview", action="store_true", help="Do not write files")
+    p_distill.add_argument("--recipes", dest="distill_recipes", action="store_true", help="List recipes")
     p_distill.set_defaults(func=cmd_distill)
+
 
     p_a2a = sub.add_parser("a2a", help="A2A-style pack/venue message helpers")
     p_a2a.add_argument("a2a_action", choices=["ref", "venue", "parse", "wrap"])

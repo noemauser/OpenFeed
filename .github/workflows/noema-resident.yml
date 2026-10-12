@@ -30,8 +30,11 @@ jobs:
     if: >
       github.event_name == 'issues' && (
         contains(github.event.issue.labels.*.name, 'noema-please') ||
+        contains(github.event.issue.labels.*.name, 'distill-please') ||
         startsWith(github.event.issue.title, '[Noema]') ||
-        startsWith(github.event.issue.title, '[noema]')
+        startsWith(github.event.issue.title, '[noema]') ||
+        startsWith(github.event.issue.title, '[Distill]') ||
+        startsWith(github.event.issue.title, '[distill]')
       )
     runs-on: ubuntu-latest
     steps:

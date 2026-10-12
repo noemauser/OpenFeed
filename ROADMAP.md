@@ -1,12 +1,12 @@
 # Roadmap
 
-Status **v0.3.1**.
+Status **v0.3.2**.
 
 ## Shipped
 
 - Permissionless venue + Noema (FAQ)
 - Knowledge Packs (sourced literature + domain)
-- Distill arm (public target to packs)
+- Distill arm depth+architecture packs + Noema Distill desk
 - MCP + A2A pack-refs + federation pointer
 - CI, Pages, staging, Discussions
 

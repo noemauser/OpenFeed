@@ -1,8 +1,8 @@
 {
   "openfeed_index_version": "0.1.0",
-  "generated_at": "2026-10-12T23:14:45Z",
+  "generated_at": "2026-10-12T23:26:03Z",
   "generated_by": "openfeed-cli",
-  "count": 39,
+  "count": 44,
   "packs": [
     {
       "id": "kp_a2a_openfeed_bridge_001",
@@ -186,48 +186,171 @@
       "uri": "openfeed://pack/kp_context_budget_001"
     },
     {
-      "id": "kp_distill_openfeed_agent_use_001",
+      "id": "kp_distill_2309_15217_agent_use_001",
       "version": "0.1.0",
-      "title": "Distill agent-use: noemauser/OpenFeed",
-      "summary": "Agent loop ideas for noemauser/OpenFeed: map, retrieve, act, cite, iterate.",
+      "title": "Distill agent-use: arXiv:2309.15217",
+      "summary": "Agent loop and OpenFeed commands for working with arXiv:2309.15217.",
       "tags": [
         "distill",
         "sourced",
         "agents",
-        "ofph",
-        "local-path",
-        "agent-use",
-        "safety"
+        "2309_15217",
+        "arxiv",
+        "depth-0",
+        "agent-use"
       ],
       "license": "MIT",
       "created_by": "noema-distill",
-      "created_at": "2026-10-12T23:14:32Z",
+      "created_at": "2026-10-12T23:25:19Z",
       "quality": {
-        "self_score": 0.78,
-        "confidence": 0.75
+        "self_score": 0.82,
+        "confidence": 0.72
+      },
+      "file": "kp_distill_2309_15217_agent_use_001.json",
+      "uri": "openfeed://pack/kp_distill_2309_15217_agent_use_001"
+    },
+    {
+      "id": "kp_distill_2309_15217_architecture_001",
+      "version": "0.1.0",
+      "title": "Distill architecture: arXiv:2309.15217",
+      "summary": "Stack, tree, manifests, rebuild/explore notes for arXiv:2309.15217.",
+      "tags": [
+        "distill",
+        "sourced",
+        "agents",
+        "2309_15217",
+        "arxiv",
+        "depth-0",
+        "architecture",
+        "rebuild"
+      ],
+      "license": "MIT",
+      "created_by": "noema-distill",
+      "created_at": "2026-10-12T23:25:19Z",
+      "quality": {
+        "self_score": 0.82,
+        "confidence": 0.72
+      },
+      "file": "kp_distill_2309_15217_architecture_001.json",
+      "uri": "openfeed://pack/kp_distill_2309_15217_architecture_001"
+    },
+    {
+      "id": "kp_distill_2309_15217_overview_001",
+      "version": "0.1.0",
+      "title": "Distill overview: arXiv:2309.15217",
+      "summary": "Orientation for arXiv:2309.15217: description, stack, license, README excerpt.",
+      "tags": [
+        "distill",
+        "sourced",
+        "agents",
+        "2309_15217",
+        "arxiv",
+        "depth-0",
+        "overview"
+      ],
+      "license": "MIT",
+      "created_by": "noema-distill",
+      "created_at": "2026-10-12T23:25:19Z",
+      "quality": {
+        "self_score": 0.82,
+        "confidence": 0.72
+      },
+      "file": "kp_distill_2309_15217_overview_001.json",
+      "uri": "openfeed://pack/kp_distill_2309_15217_overview_001"
+    },
+    {
+      "id": "kp_distill_2309_15217_surfaces_001",
+      "version": "0.1.0",
+      "title": "Distill surfaces: arXiv:2309.15217",
+      "summary": "Layout and tree sample (depth 0) for arXiv:2309.15217.",
+      "tags": [
+        "distill",
+        "sourced",
+        "agents",
+        "2309_15217",
+        "arxiv",
+        "depth-0",
+        "surfaces"
+      ],
+      "license": "MIT",
+      "created_by": "noema-distill",
+      "created_at": "2026-10-12T23:25:19Z",
+      "quality": {
+        "self_score": 0.82,
+        "confidence": 0.72
+      },
+      "file": "kp_distill_2309_15217_surfaces_001.json",
+      "uri": "openfeed://pack/kp_distill_2309_15217_surfaces_001"
+    },
+    {
+      "id": "kp_distill_openfeed_agent_use_001",
+      "version": "0.1.0",
+      "title": "Distill agent-use: noemauser/OpenFeed",
+      "summary": "Agent loop and OpenFeed commands for working with noemauser/OpenFeed.",
+      "tags": [
+        "distill",
+        "sourced",
+        "agents",
+        "ofx",
+        "local-path",
+        "depth-2",
+        "agent-use"
+      ],
+      "license": "MIT",
+      "created_by": "noema-distill",
+      "created_at": "2026-10-12T23:25:19Z",
+      "quality": {
+        "self_score": 0.82,
+        "confidence": 0.8
       },
       "file": "kp_distill_openfeed_agent_use_001.json",
       "uri": "openfeed://pack/kp_distill_openfeed_agent_use_001"
     },
     {
-      "id": "kp_distill_openfeed_overview_001",
+      "id": "kp_distill_openfeed_architecture_001",
       "version": "0.1.0",
-      "title": "Distill overview: noemauser/OpenFeed",
-      "summary": "Distilled orientation for noemauser/OpenFeed: what it is, README excerpt, license signal.",
+      "title": "Distill architecture: noemauser/OpenFeed",
+      "summary": "Stack, tree, manifests, rebuild/explore notes for noemauser/OpenFeed.",
       "tags": [
         "distill",
         "sourced",
         "agents",
-        "ofph",
+        "ofx",
         "local-path",
+        "depth-2",
+        "architecture",
+        "rebuild"
+      ],
+      "license": "MIT",
+      "created_by": "noema-distill",
+      "created_at": "2026-10-12T23:25:19Z",
+      "quality": {
+        "self_score": 0.82,
+        "confidence": 0.8
+      },
+      "file": "kp_distill_openfeed_architecture_001.json",
+      "uri": "openfeed://pack/kp_distill_openfeed_architecture_001"
+    },
+    {
+      "id": "kp_distill_openfeed_overview_001",
+      "version": "0.1.0",
+      "title": "Distill overview: noemauser/OpenFeed",
+      "summary": "Orientation for noemauser/OpenFeed: description, stack, license, README excerpt.",
+      "tags": [
+        "distill",
+        "sourced",
+        "agents",
+        "ofx",
+        "local-path",
+        "depth-2",
         "overview"
       ],
       "license": "MIT",
       "created_by": "noema-distill",
-      "created_at": "2026-10-12T23:14:32Z",
+      "created_at": "2026-10-12T23:25:19Z",
       "quality": {
-        "self_score": 0.78,
-        "confidence": 0.75
+        "self_score": 0.82,
+        "confidence": 0.8
       },
       "file": "kp_distill_openfeed_overview_001.json",
       "uri": "openfeed://pack/kp_distill_openfeed_overview_001"
@@ -236,22 +359,22 @@
       "id": "kp_distill_openfeed_surfaces_001",
       "version": "0.1.0",
       "title": "Distill surfaces: noemauser/OpenFeed",
-      "summary": "Observed layout and approach surfaces for agents exploring noemauser/OpenFeed.",
+      "summary": "Layout and tree sample (depth 2) for noemauser/OpenFeed.",
       "tags": [
         "distill",
         "sourced",
         "agents",
-        "ofph",
+        "ofx",
         "local-path",
-        "surfaces",
-        "architecture"
+        "depth-2",
+        "surfaces"
       ],
       "license": "MIT",
       "created_by": "noema-distill",
-      "created_at": "2026-10-12T23:14:32Z",
+      "created_at": "2026-10-12T23:25:19Z",
       "quality": {
-        "self_score": 0.78,
-        "confidence": 0.75
+        "self_score": 0.82,
+        "confidence": 0.8
       },
       "file": "kp_distill_openfeed_surfaces_001.json",
       "uri": "openfeed://pack/kp_distill_openfeed_surfaces_001"

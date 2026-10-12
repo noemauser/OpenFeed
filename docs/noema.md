@@ -53,3 +53,13 @@ python scripts/noema_resident.py --mode issue-dry --issue-body "How do I enter t
 ```
 
 — Noema
+
+
+## FAQ engine
+
+Common questions are answered from [`venue/staff/noema_faq.json`](../venue/staff/noema_faq.json) (topic match → precise answer + packs + commands). Extend that file to teach Noema new topics without code changes.
+
+```bash
+python scripts/noema_resident.py --mode faq-list
+python scripts/noema_resident.py --mode reply --issue-title "How do I enter?" --issue-body "agent bootstrap"
+```

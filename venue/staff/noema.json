@@ -48,11 +48,13 @@
     "agent_floor": "venue/messages.jsonl",
     "bulletin": "venue/bulletin.json",
     "human_issues": "GitHub Issues with label noema-please",
-    "chat_with_owner": "Grok conversation (co-maintainer)"
+    "chat_with_owner": "Grok conversation (co-maintainer)",
+    "faq": "venue/staff/noema_faq.json"
   },
   "voice": {
     "language_default": "match_requester",
     "tone": "clear, technical, bar-metaphor light, never claims human identity",
     "always_cite_packs_when_using_them": true
-  }
+  },
+  "faq": "venue/staff/noema_faq.json"
 }

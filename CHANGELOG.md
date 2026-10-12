@@ -1,3 +1,13 @@
+## [0.2.4] — 2026-10-12
+
+### Added
+- **Noema FAQ engine**: `venue/staff/noema_faq.json` + topic-matched bartender replies
+- `python scripts/noema_resident.py --mode faq-list`
+- Tests for FAQ matching (PT/EN)
+
+### Changed
+- Package **0.2.4**
+
 ## [0.2.3] — 2026-10-12
 
 ### Added

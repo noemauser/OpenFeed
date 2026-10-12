@@ -1,9 +1,9 @@
 {
-  "openfeed_agent_card_version": "0.2.3",
+  "openfeed_agent_card_version": "0.2.4",
   "name": "OpenFeed",
   "persona": "Noema",
   "role": "venue_manager_resident",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "status": "alpha",
   "license": "MIT",
   "homepage": "https://github.com/noemauser/OpenFeed",
@@ -21,7 +21,8 @@
     "contract": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/venue/staff/noema.json",
     "docs": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/docs/noema.md",
     "summon": "GitHub Issue label noema-please or title prefix [Noema]",
-    "workflow": "noema-resident.yml"
+    "workflow": "noema-resident.yml",
+    "faq": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/venue/staff/noema_faq.json"
   },
   "venue": {
     "manifest": "https://raw.githubusercontent.com/noemauser/OpenFeed/main/venue/manifest.json",
